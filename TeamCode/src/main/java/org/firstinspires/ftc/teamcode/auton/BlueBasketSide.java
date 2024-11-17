@@ -108,36 +108,36 @@ public class BlueBasketSide extends LinearOpMode {
                 })
                 .afterTime(11.51,bot.setPidVals(2100,0))
                 .afterTime(12.9, bot.setPidVals(2100,6000))
-                .afterTime(15.6, telemetryPacket -> {
+                .afterTime(14.6, telemetryPacket -> {
                     bot.intakeLeft.setPower(-0.4);
                     bot.intakeRight.setPower(0.4);
                     return false;
                 })
-                .afterTime(16.1, telemetryPacket -> {
+                .afterTime(15.1, telemetryPacket -> {
                     bot.wrist.setPosition(0.07);
                     return false;
                 })
-                .afterTime(16.3, bot.setPidVals(2100,0))
-                .afterTime(17.1, bot.setPidVals(0,0))
-                .afterTime(18.8, bot.setPidVals(0, 1800))
-                .afterTime(17.5, telemetryPacket -> {
+                .afterTime(15.3, bot.setPidVals(2100,0))
+                .afterTime(16.1, bot.setPidVals(0,0))
+                .afterTime(17.8, bot.setPidVals(0, 1800))
+                .afterTime(16.5, telemetryPacket -> {
                     bot.intakeLeft.setPower(1);
                     bot.intakeRight.setPower(-1);
                     return false;
                 })
-                .afterTime(22.8, telemetryPacket -> {
+                .afterTime(18.5, telemetryPacket -> {
                     bot.intakeLeft.setPower(0.3);
                     bot.intakeRight.setPower(-0.3);
                     return false;
                 })
-                .afterTime(23.8, bot.setPidVals(0,0))
-                .afterTime(24, telemetryPacket -> {
+                .afterTime(19.8, bot.setPidVals(0,0))
+                .afterTime(20, telemetryPacket -> {
                     bot.wrist.setPosition(0.5);
                     return false;
                 })
-                .afterTime(25.55,bot.setPidVals(2100,0))
-                .afterTime(26, bot.setPidVals(2100,6000))
-                .afterTime(29, telemetryPacket -> {
+                .afterTime(21.55,bot.setPidVals(2100,0))
+                .afterTime(22, bot.setPidVals(2100,6000))
+                .afterTime(25, telemetryPacket -> {
                     bot.intakeLeft.setPower(-0.4);
                     bot.intakeRight.setPower(0.4);
                     return false;
