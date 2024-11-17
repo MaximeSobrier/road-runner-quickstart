@@ -40,7 +40,6 @@ public class BlueBasketSide extends LinearOpMode {
                 .strafeToLinearHeading(new Vector2d(-49,-43.5), Math.toRadians(45))
                 .waitSeconds(6);
 
-
         
         // Final action to close out the trajectory
         Action trajectoryActionCloseOut = tab1.fresh().build();
