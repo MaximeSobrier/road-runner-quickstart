@@ -22,7 +22,7 @@ public class BlueBasketSide extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         // Starting position of the robot (x = -11.8, y = -61.7, heading = -90 degrees)
-        Pose2d initialPose = new Pose2d(-15, -63, Math.toRadians(270)); // 90
+        Pose2d initialPose = new Pose2d(-15, -62, Math.toRadians(270)); // 90
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
         Robot bot = new Robot(hardwareMap);
 
@@ -30,7 +30,8 @@ public class BlueBasketSide extends LinearOpMode {
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
                 .strafeTo(new Vector2d(-8,-40)) // -8, -45
                 .waitSeconds(2.3)
-                .strafeTo(new Vector2d(-8, -47))
+                .strafeTo(new Vector2d(-8, -49))
+                .waitSeconds(2)
                 //Arm to high speci and back down
                 .strafeToLinearHeading(new Vector2d(-49,-43), Math.toRadians(90))
                 .waitSeconds(0.5)
