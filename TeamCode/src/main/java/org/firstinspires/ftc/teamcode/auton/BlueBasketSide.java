@@ -22,14 +22,15 @@ public class BlueBasketSide extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         // Starting position of the robot (x = -11.8, y = -61.7, heading = -90 degrees)
-        Pose2d initialPose = new Pose2d(-15, -63, Math.toRadians(90));
+        Pose2d initialPose = new Pose2d(-15, -63, Math.toRadians(270)); // 90
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
         Robot bot = new Robot(hardwareMap);
 
         // Define trajectory using Pose2d for simultaneous right and forward movement
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
-                .strafeTo(new Vector2d(-8,-45))
-                .waitSeconds(4.8)
+                .strafeTo(new Vector2d(-8,-40)) // -8, -45
+                .waitSeconds(2.3)
+                .strafeTo(new Vector2d(-8, -47))
                 //Arm to high speci and back down
                 .strafeToLinearHeading(new Vector2d(-49,-43), Math.toRadians(90))
                 .waitSeconds(0.5)
@@ -38,22 +39,23 @@ public class BlueBasketSide extends LinearOpMode {
                 .waitSeconds(5.5)
                 //intake
                 .strafeToLinearHeading(new Vector2d(-60,-45), Math.toRadians(90))
-                .waitSeconds(1.5)
+                .waitSeconds(0.5)
                 .strafeToLinearHeading(new Vector2d(-60,-38), Math.toRadians(90))
                 .strafeToLinearHeading(new Vector2d(-49.5,-43.5), Math.toRadians(45))
                 .waitSeconds(5.3)
                 .strafeToLinearHeading(new Vector2d(-60,-38), Math.toRadians(135))
-                .strafeToLinearHeading(new Vector2d(-49.5,-43.5), Math.toRadians(45));
+                .strafeToLinearHeading(new Vector2d(-49.5,-43.5), Math.toRadians(45))
+                .waitSeconds(5.3);
 
 
         // Final action to close out the trajectory
         Action trajectoryActionCloseOut = tab1.fresh().build();
 
         Action waitAndArm = drive.actionBuilder(initialPose)
-                .afterTime(0.01, bot.setPidVals(1050,3800))
+                .afterTime(0.01, bot.setPidVals(2200,952)) // 1050, 3800
 //                .afterTime(0.05, bot.intake(-0.5))
                 .afterTime(0.02, telemetryPacket -> {
-                    bot.wrist.setPosition(0.01);
+                    bot.wrist.setPosition(0.5);
                     return false;
                 })
                 .afterTime(0.8, telemetryPacket -> {
@@ -62,23 +64,23 @@ public class BlueBasketSide extends LinearOpMode {
                     return false;
                 })
                 .afterTime(2.3, telemetryPacket -> {
-                    bot.wrist.setPosition(0.01);
+                    bot.wrist.setPosition(0.5);
                     return false;
                 })
                 .afterTime(2.8, telemetryPacket -> {
-                    bot.wrist.setPosition(0.01);
+                    bot.wrist.setPosition(0.5);
                     return false;
                 })
-                .afterTime(2.3, bot.setPidVals(600,3950))
+                .afterTime(2.3, bot.setPidVals(2200,644))
                 .afterTime(3.2, telemetryPacket -> {
-                    bot.wrist.setPosition(0.01);
+                    bot.wrist.setPosition(0.5);
                     return false;
                 })
                 .afterTime(3.7, telemetryPacket -> {
-                    bot.wrist.setPosition(0.01);
+                    bot.wrist.setPosition(0.5);
                     return false;
                 })
-                .afterTime(3.8, telemetryPacket -> {
+                .afterTime(4.6, telemetryPacket -> {
                     bot.intakeLeft.setPower(-0.5);
                     bot.intakeRight.setPower(0.5);
                     return false;
