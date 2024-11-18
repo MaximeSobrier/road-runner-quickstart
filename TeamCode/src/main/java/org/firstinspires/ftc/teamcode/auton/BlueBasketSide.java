@@ -35,13 +35,13 @@ public class BlueBasketSide extends LinearOpMode {
                 .strafeToLinearHeading(new Vector2d(-49,-48), Math.toRadians(90))
                 .waitSeconds(0.5)
                 .strafeToLinearHeading(new Vector2d(-49,-38), Math.toRadians(90))
-                .strafeToLinearHeading(new Vector2d(-48,-51), Math.toRadians(45))
+                .strafeToLinearHeading(new Vector2d(-49,-52), Math.toRadians(45))
                 .waitSeconds(7)
                 //intake
                 .strafeToLinearHeading(new Vector2d(-59,-45), Math.toRadians(90))
                 .waitSeconds(0.5)
                 .strafeToLinearHeading(new Vector2d(-57.5,-38), Math.toRadians(90))
-                .strafeToLinearHeading(new Vector2d(-49.5,-48), Math.toRadians(45))
+                .strafeToLinearHeading(new Vector2d(-50.5,-49), Math.toRadians(45))
                 .waitSeconds(5.3)
                 .splineToSplineHeading(new Pose2d(-28,-12, Math.toRadians(0)), Math.toRadians(0));
 
@@ -50,13 +50,13 @@ public class BlueBasketSide extends LinearOpMode {
         Action trajectoryActionCloseOut = tab1.fresh().build();
 
         Action waitAndArm = drive.actionBuilder(initialPose)
-                .afterTime(0.01, bot.setPidVals(2200,952)) // 1050, 3800
+                .afterTime(0.01, bot.setPidVals(2300,952)) // 1050, 3800 arm out
 //                .afterTime(0.05, bot.intake(-0.5))
                 .afterTime(0.02, telemetryPacket -> {
                     bot.wrist.setPosition(0.5);
                     return false;
                 })
-                .afterTime(0.8, telemetryPacket -> {
+                .afterTime(1, telemetryPacket -> {//score specimen/outake
                     bot.intakeLeft.setPower(0.5);
                     bot.intakeRight.setPower(-0.5);
                     return false;
@@ -155,6 +155,12 @@ public class BlueBasketSide extends LinearOpMode {
                 })
                 .afterTime(28, telemetryPacket -> {
                     bot.wrist.setPosition(1);
+                    return false;
+                })
+                .afterTime(28.3, bot.setPidVals(1400,1000))
+                .afterTime(28.8, bot.setPidVals(1400,2400))
+                .afterTime(29.5, telemetryPacket -> {
+                    bot.wrist.setPosition(0);
                     return false;
                 })
                 .build();
