@@ -216,7 +216,12 @@ public class Robot {
                 TeleopPID(gamepad2);
                 arcadeDrive(gamepad1);
             }
+//            slideTarget = 6000;
+        }
+        if (gamepad2.right_bumper) {
             slideTarget = 6000;
+            wrist.setPosition(0.5);
+            intakeMultiplier = 0.5;
         }
         if (gamepad2.a) {
             slideTarget = 0;
