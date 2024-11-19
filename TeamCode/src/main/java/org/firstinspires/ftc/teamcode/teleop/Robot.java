@@ -175,16 +175,16 @@ public class Robot {
 
     public void wristControl(Gamepad gamepad) {
         if (gamepad.dpad_up) {
-            wrist.setPosition(0.51);
+            wrist.setPosition(1);
         }
         else if (gamepad.dpad_down) {
-            wrist.setPosition(0.08);
+            wrist.setPosition(0);
         }
         else if (gamepad.dpad_right) {
-            wrist.setPosition(0.36);
+            wrist.setPosition(0.5);
         }
         else if (gamepad.dpad_left) {
-            wrist.setPosition(0.95);
+            wrist.setPosition(-0.5);
         }
     }
 

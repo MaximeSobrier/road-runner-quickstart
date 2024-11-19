@@ -78,24 +78,23 @@ public class meepmep {
 
 
         RedBasketSide.runAction(RedBasketSide.getDrive().actionBuilder(new Pose2d(-15, -63, Math.toRadians(90)))
-                .strafeTo(new Vector2d(-9,-48))
-                .waitSeconds(2.5)
-                .strafeToLinearHeading(new Vector2d(-56,-48), Math.toRadians(65))
-                .waitSeconds(3)
-                .turn(Math.toRadians(30))
-                .waitSeconds(1)
-                .turn(Math.toRadians(-30))
-                .waitSeconds(2)
-                .turn(Math.toRadians(55))
-                .waitSeconds(1)
-                .turn(Math.toRadians(-55))
-                .waitSeconds(2)
-                .strafeToLinearHeading(new Vector2d(-33,-9), Math.toRadians(0))
-                .waitSeconds(3)
-                .strafeToLinearHeading(new Vector2d(-56,-48), Math.toRadians(65))
-                .waitSeconds(2)
-                .strafeToLinearHeading(new Vector2d(-33,-9), Math.toRadians(0))
-                .waitSeconds(1.2)
+                .strafeTo(new Vector2d(-8,-39)) // -8, -45
+                .waitSeconds(1.5)
+                .strafeTo(new Vector2d(-8, -49))
+                //Arm to high speci and back down
+                .strafeToLinearHeading(new Vector2d(-49,-48), Math.toRadians(90))
+                .waitSeconds(0.5)
+                .strafeToLinearHeading(new Vector2d(-49,-38), Math.toRadians(90))
+                .strafeToLinearHeading(new Vector2d(-49,-52), Math.toRadians(45))
+                .waitSeconds(7.5)
+                //intake
+                .strafeToLinearHeading(new Vector2d(-59,-45), Math.toRadians(90))
+                .waitSeconds(0.5)
+                .strafeToLinearHeading(new Vector2d(-57.5,-38), Math.toRadians(90))
+                .strafeToLinearHeading(new Vector2d(-50.5,-49), Math.toRadians(45))
+                .waitSeconds(5.3)
+                .splineToSplineHeading(new Pose2d(-28,-8, Math.toRadians(0)), Math.toRadians(0))
+
                 .build());
 
         RedHumanSide.runAction(RedHumanSide.getDrive().actionBuilder(new Pose2d(15, -63, Math.toRadians(90)))
