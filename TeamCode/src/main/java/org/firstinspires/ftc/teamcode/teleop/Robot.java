@@ -175,13 +175,13 @@ public class Robot {
 
     public void wristControl(Gamepad gamepad) {
         if (gamepad.dpad_up) {
-            wrist.setPosition(0.5);
+            wrist.setPosition(0.51);
         }
         else if (gamepad.dpad_down) {
-            wrist.setPosition(0.07);
+            wrist.setPosition(0.08);
         }
         else if (gamepad.dpad_right) {
-            wrist.setPosition(0.35);
+            wrist.setPosition(0.36);
         }
         else if (gamepad.dpad_left) {
             wrist.setPosition(0.95);
@@ -210,7 +210,7 @@ public class Robot {
     public void scoringMacro(Gamepad gamepad1, Gamepad gamepad2) {
         if (gamepad2.y) {
             armTarget = 2200;
-            wrist.setPosition(0.5);
+            wrist.setPosition(0.51);
             intakeMultiplier = 0.5;
             while (Math.abs(armTarget - flip.getCurrentPosition()) > 100) {
                 TeleopPID(gamepad2);
@@ -220,7 +220,7 @@ public class Robot {
         }
         if (gamepad2.right_bumper) {
             slideTarget = 6000;
-            wrist.setPosition(0.5);
+            wrist.setPosition(0.51);
             intakeMultiplier = 0.5;
         }
         if (gamepad2.a) {
@@ -239,12 +239,12 @@ public class Robot {
                 TeleopPID(gamepad2);
                 arcadeDrive(gamepad1);
             }
-            wrist.setPosition(0.07);
+            wrist.setPosition(0.08);
         }
         else if (gamepad2.b) {
             slideTarget = 0;
             intakeMultiplier = 1;
-            wrist.setPosition(0.35);
+            wrist.setPosition(0.36);
         }
     }
 

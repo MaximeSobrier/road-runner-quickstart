@@ -12,6 +12,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.teleop.Robot;
@@ -53,7 +54,7 @@ public class BlueBasketSide extends LinearOpMode {
                 .afterTime(0.01, bot.setPidVals(2200,952)) // 1050, 3800 arm out
 //                .afterTime(0.05, bot.intake(-0.5))
                 .afterTime(0.02, telemetryPacket -> {
-                    bot.wrist.setPosition(0.5);
+                    bot.wrist.setPosition(0.6);
                     return false;
                 })
                 .afterTime(1, telemetryPacket -> {//score specimen/outake
@@ -62,12 +63,12 @@ public class BlueBasketSide extends LinearOpMode {
                     return false;
                 })
                 .afterTime(2.3, telemetryPacket -> {
-                    bot.wrist.setPosition(0.5);
+                    bot.wrist.setPosition(0.6);
                     return false;
                 })
                 .afterTime(2, bot.setPidVals(2200,600))
                 .afterTime(3.2, telemetryPacket -> {
-                    bot.wrist.setPosition(0.5);
+                    bot.wrist.setPosition(0.6);
                     return false;
                 })
                 .afterTime(3.8, telemetryPacket -> {
@@ -84,7 +85,7 @@ public class BlueBasketSide extends LinearOpMode {
 
                 .afterTime(6.4, bot.setPidVals(0,0))
                 .afterTime(6.9, telemetryPacket -> {
-                    bot.wrist.setPosition(0.15);
+                    bot.wrist.setPosition(0.08);
                     return false;
                 })
                 .afterTime(6, telemetryPacket -> {
@@ -98,7 +99,7 @@ public class BlueBasketSide extends LinearOpMode {
                     return false;
                 })
                 .afterTime(8.2, telemetryPacket -> {
-                    bot.wrist.setPosition(0.5);
+                    bot.wrist.setPosition(0.6);
                     return false;
                 })
                 .afterTime(9.7,bot.setPidVals(2100,0))
@@ -109,7 +110,7 @@ public class BlueBasketSide extends LinearOpMode {
                     return false;
                 })
                 .afterTime(14.1, telemetryPacket -> {
-                    bot.wrist.setPosition(0.15);
+                    bot.wrist.setPosition(0.08);
                     return false;
                 })
                 .afterTime(14.2, bot.setPidVals(2100,0))
@@ -124,8 +125,8 @@ public class BlueBasketSide extends LinearOpMode {
                     bot.intakeRight.setPower(-0.3);
                     return false;
                 })
-                .afterTime(19, telemetryPacket -> {
-                    bot.wrist.setPosition(0.5);
+                .afterTime(19.5, telemetryPacket -> {
+                    bot.wrist.setPosition(0.6);
                     return false;
                 })
                 .afterTime(19.7,bot.setPidVals(2100,0))
@@ -137,7 +138,7 @@ public class BlueBasketSide extends LinearOpMode {
                 })
                 .afterTime(23.7, bot.setPidVals(2100,0))
                 .afterTime(23.8, telemetryPacket -> {
-                    bot.wrist.setPosition(0.07);
+                    bot.wrist.setPosition(0.08);
                     return false;
                 })
                 .afterTime(24.2, telemetryPacket -> {
