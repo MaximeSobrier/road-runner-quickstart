@@ -183,9 +183,9 @@ public class Robot {
         else if (gamepad.dpad_right) {
             wrist.setPosition(0.5);
         }
-        else if (gamepad.dpad_left) {
-            wrist.setPosition(-0.5);
-        }
+//        else if (gamepad.dpad_left) {
+//            wrist.setPosition(-0.5);
+//        }
     }
 
     public void intakeControl(Gamepad gamepad) {
