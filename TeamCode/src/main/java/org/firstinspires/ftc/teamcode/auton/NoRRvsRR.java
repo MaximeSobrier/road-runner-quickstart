@@ -4,12 +4,14 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.teleop.Robot;
 
+@Autonomous
 @Config
 public class NoRRvsRR extends LinearOpMode {
     public static boolean RR = false;
@@ -17,6 +19,9 @@ public class NoRRvsRR extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         Robot bot = new Robot(hardwareMap);
+
+        waitForStart();
+
         if (RR) {
             MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0,0,0));
             Action moveForward = drive.actionBuilder(new Pose2d(0,0,0))
@@ -27,10 +32,10 @@ public class NoRRvsRR extends LinearOpMode {
         else {
             timer.reset();
             while (timer.seconds() < 4) {
-                bot.leftFront.setPower(1);
-                bot.leftBack.setPower(1);
-                bot.rightBack.setPower(1);
-                bot.rightFront.setPower(1);
+                bot.leftFront.setPower(0.6);
+                bot.leftBack.setPower(0.6);
+                bot.rightBack.setPower(0.6);
+                bot.rightFront.setPower(0.6);
             }
             bot.leftFront.setPower(0);
             bot.leftBack.setPower(0);
