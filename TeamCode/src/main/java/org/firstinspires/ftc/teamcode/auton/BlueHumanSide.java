@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.teleop.Robot;
 
 @Config
-@Autonomous(name = "BlueHumanSide", group = "Autonomous")
+@Autonomous(name = "BlueHumanSide", group = "Autonomous", preselectTeleOp = "TeleopV1")
 public class BlueHumanSide extends LinearOpMode {
     @Override
     public void runOpMode() {
@@ -55,27 +55,29 @@ public class BlueHumanSide extends LinearOpMode {
         Action trajectoryActionCloseOut = tab1.fresh().build();
 
         Action waitAndArm = drive.actionBuilder(initialPose)
-                .afterTime(0, bot.setPidVals(1100,4200))
+                .afterTime(0.01, bot.setPidVals(2200,952))
 //                .afterTime(0.05, bot.intake(-0.5))
-                .afterTime(0.1, telemetryPacket -> {
-                    bot.wrist.setPosition(0.01);
+                .afterTime(0.02, telemetryPacket -> {
+                    bot.wrist.setPosition(0.6);
                     return false;
                 })
                 .afterTime(1, telemetryPacket -> {
-                    bot.intakeLeft.setPower(-0.5);
-                    bot.intakeRight.setPower(0.5);
-                    return false;
-                })
-                .afterTime(4, bot.setPidVals(700,4200))
-                .afterTime(4.75, telemetryPacket -> {
                     bot.intakeLeft.setPower(0.5);
                     bot.intakeRight.setPower(-0.5);
                     return false;
                 })
-                .afterTime(5.5, bot.setPidVals(700,0))
-                .afterTime(7, telemetryPacket -> {
-                    bot.intakeLeft.setPower(0);
-                    bot.intakeRight.setPower(0);
+                .afterTime(2.3, telemetryPacket -> {
+            bot.wrist.setPosition(0.6);
+            return false;
+                })
+                .afterTime(2, bot.setPidVals(2200,600))
+                .afterTime(3.2, telemetryPacket -> {
+                    bot.wrist.setPosition(0.6);
+                    return false;
+                })
+                .afterTime(3.8, telemetryPacket -> {
+                    bot.intakeLeft.setPower(-0.5);
+                    bot.intakeRight.setPower(0.5);
                     return false;
                 })
                 .build();

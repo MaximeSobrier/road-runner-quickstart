@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.teleop.Robot;
 
 @Config
-@Autonomous(name = "RedHumanSide", group = "Autonomous")
+@Autonomous(name = "RedHumanSide", group = "Autonomous", preselectTeleOp = "TeleopV1")
 public class RedHumanSide extends LinearOpMode {
     @Override
     public void runOpMode() {
