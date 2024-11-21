@@ -298,6 +298,7 @@ public class Robot {
     public void extraD1Features(Gamepad gamepad) {
         if (gamepad.dpad_up) {
             slideTarget += 28;
+            if (slideTarget > 5000) {slideTarget = 5000; }
         }
         else if (gamepad.dpad_down) {
             slideTarget -= 28;
