@@ -23,7 +23,6 @@ public class TeleopV1 extends LinearOpMode {
             bot.wristControl(gamepad2);
             bot.intakeControl(gamepad2);
             bot.scoringMacro(gamepad1, gamepad2);
-            bot.hangControl(gamepad1);
             bot.extraD1Features(gamepad1);
 
 //            bot.updateAxonPositions();
@@ -37,6 +36,8 @@ public class TeleopV1 extends LinearOpMode {
             telemetry.addData("slidePower", bot.slide.getPower());
             telemetry.addData("intakeLeft", bot.intakeLeft.getPower());
             telemetry.addData("intakeRight", bot.intakeRight.getPower());
+            telemetry.addData("degrees", bot.flip.getCurrentPosition() / (2048/90.0));
+            telemetry.addData("limit", bot.slideExtensionLimit);
             telemetry.update();
         }
     }
