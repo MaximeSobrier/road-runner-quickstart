@@ -21,15 +21,16 @@ public class BlueHumanSide extends LinearOpMode {
     @Override
     public void runOpMode() {
         // Starting position of the robot (x = -11.8, y = -61.7, heading = -90 degrees)
-        Pose2d initialPose = new Pose2d(-15, 63, Math.toRadians(270));
+        Pose2d initialPose = new Pose2d(-15, -62, Math.toRadians(270));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
         Robot bot = new Robot(hardwareMap);
 
         
         // Define trajectory using Pose2d for simultaneous right and forward movement
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
-                .strafeTo(new Vector2d(-11,48))
-                .waitSeconds(1.86)
+                .strafeTo(new Vector2d(-8,-39)) // -8, -45
+                .waitSeconds(1.5)
+                .strafeTo(new Vector2d(-8, -49))
                 //Arm to high speci and back down
                 .strafeToLinearHeading(new Vector2d(-30,48), Math.toRadians(255))
                 .strafeToLinearHeading(new Vector2d(-38,11), Math.toRadians(260))
