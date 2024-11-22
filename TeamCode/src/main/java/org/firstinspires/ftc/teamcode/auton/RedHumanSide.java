@@ -71,6 +71,7 @@ public class RedHumanSide extends LinearOpMode {
         // Final action to close out the trajectory
         Action trajectoryActionCloseOut = tab1.fresh().build();
 
+        
         Action waitAndArm = drive.actionBuilder(initialPose)
                 .afterTime(0.01, bot.setPidVals(2200,952)) // 1050, 3800 arm out
 //                .afterTime(0.05, bot.intake(-0.5))
