@@ -309,6 +309,14 @@ public class Robot {
         else if (gamepad.dpad_left) {
             armTarget -= 15;
         }
+        else if(gamepad.right_bumper) {
+            leftHang.setPosition(1);
+            rightHang.setPosition(1);
+        }
+        else if(gamepad.left_bumper){
+            leftHang.setPosition(0);
+            rightHang.setPosition(0);
+        }
 
 //        intakeRight.setPower((-gamepad.left_trigger + gamepad.right_trigger));
 //        intakeLeft.setPower(gamepad.left_trigger - gamepad.right_trigger);
@@ -476,8 +484,8 @@ public class Robot {
     }
 
     public static class armPIDValues {
-        public static double fP = 0.0043, fI = 0.0015, fD = 0.0003;  //fD = 0.00001, fP = 0.002
-        public static double fF = 0.04;  //fF = 0.0022
+        public static double fP = 0.0043, fI = 0.0015, fD = 0.0;  //fD = 0.00001, fP = 0.002
+        public static double fF = 0.08; //fF = 0.0022
         public static double sP = 0.003, sI, sD;
 
         private static final double ticks_in_degree = 2048 / 90.0;

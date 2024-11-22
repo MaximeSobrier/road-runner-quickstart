@@ -28,24 +28,25 @@ public class RedHumanSide extends LinearOpMode {
         Robot bot = new Robot(hardwareMap);
 
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
-                .strafeTo(new Vector2d(10,-39)) // -8, -45
+                .strafeTo(new Vector2d(9.6,-39)) // -8, -45
                 .waitSeconds(1.5)
-                .strafeTo(new Vector2d(10, -49))
+                .strafeTo(new Vector2d(9.6, -49))
                 .waitSeconds(1.5)
                 .splineToSplineHeading(new Pose2d(36, -40, Math.toRadians(90)), Math.toRadians(90))
                 .waitSeconds(0.25)
-                .splineToConstantHeading(new Vector2d(40, -15), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(39.5, -15), Math.toRadians(90))
                 .strafeTo(new Vector2d(45, -15))
                 .strafeToLinearHeading(new Vector2d(45, -53), Math.toRadians(90))
-                .waitSeconds(0.25)
-                .turn(Math.toRadians(180))
-                .waitSeconds(3)
+                .waitSeconds(0.1)
+                .strafeToLinearHeading(new Vector2d(45.01, -53.01), Math.toRadians(270))
+                .waitSeconds(1.5)
                 .strafeTo(new Vector2d(45, -58))
-                .strafeTo(new Vector2d(4,-40))
+                .waitSeconds(1.5)
+                .strafeTo(new Vector2d(4,-38))
                 .waitSeconds(3)
                 .strafeTo(new Vector2d(4, -49))
                 .waitSeconds(0.25)
-                .strafeTo(new Vector2d(60,-60));
+                .strafeTo(new Vector2d(60,-56));
                 //Arm to high speci and back down
 //                .strafeToLinearHeading(new Vector2d(30,-48), Math.toRadians(75))
 //                .strafeToLinearHeading(new Vector2d(38,-14), Math.toRadians(80))
@@ -108,8 +109,8 @@ public class RedHumanSide extends LinearOpMode {
                     bot.wrist.setPosition(1);
                     return false;
                 })
-                .afterTime(13, bot.setPidVals(710,0))
-                .afterTime(13.1, telemetryPacket -> {
+                .afterTime(13, bot.setPidVals(750,0))
+                .afterTime(11.1, telemetryPacket -> {
                     bot.wrist.setPosition(0);
                     return false;
                 })
@@ -133,7 +134,7 @@ public class RedHumanSide extends LinearOpMode {
                     bot.wrist.setPosition(0.55);
                     return false;
                 })
-                .afterTime(24, bot.setPidVals(2200,600))
+                .afterTime(24, bot.setPidVals(2180,600))
                 .afterTime(25.2, telemetryPacket -> {
                     bot.wrist.setPosition(0.55);
                     return false;
@@ -147,10 +148,11 @@ public class RedHumanSide extends LinearOpMode {
                 .afterTime(27.8, telemetryPacket -> {
                     bot.intakeLeft.setPower(0);
                     bot.intakeRight.setPower(0);
+                    bot.wrist.setPosition(1);
                     return false;
                 })
 
-                .afterTime(28.4, bot.setPidVals(0,0))
+                .afterTime(28, bot.setPidVals(0,0))
                 .afterTime(28.5, telemetryPacket -> {
                     bot.wrist.setPosition(1);
                     return false;
