@@ -309,11 +309,11 @@ public class Robot {
         else if (gamepad.dpad_left) {
             armTarget -= 15;
         }
-        else if(gamepad.right_bumper) {
+        else if (gamepad.right_bumper) {
             leftHang.setPosition(1);
             rightHang.setPosition(1);
         }
-        else if(gamepad.left_bumper){
+        else if (gamepad.left_bumper){
             leftHang.setPosition(0);
             rightHang.setPosition(0);
         }
