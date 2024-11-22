@@ -30,21 +30,21 @@ public class BlueBasketSide extends LinearOpMode {
         // Define trajectory using Pose2d for simultaneous right and forward movement
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
                 .strafeTo(new Vector2d(-8,-39)) // -8, -45
-                .waitSeconds(1.5)
+                .waitSeconds(1.4)
                 .strafeTo(new Vector2d(-8, -49))
                 //Arm to high speci and back down
                 .strafeToLinearHeading(new Vector2d(-49,-48), Math.toRadians(90))
                 .waitSeconds(0.5)
                 .strafeToLinearHeading(new Vector2d(-49,-38), Math.toRadians(90))
                 .strafeToLinearHeading(new Vector2d(-49,-52), Math.toRadians(45))
-                .waitSeconds(7.5)
+                .waitSeconds(7.4)
                 //intake
-                .strafeToLinearHeading(new Vector2d(-59,-45), Math.toRadians(90))
+                .strafeToLinearHeading(new Vector2d(-58,-45), Math.toRadians(90))
                 .waitSeconds(0.5)
                 .strafeToLinearHeading(new Vector2d(-57.5,-38), Math.toRadians(90))
                 .strafeToLinearHeading(new Vector2d(-50.5,-49), Math.toRadians(45))
                 .waitSeconds(5.3)
-                .splineToSplineHeading(new Pose2d(-28,-8, Math.toRadians(0)), Math.toRadians(0));
+                .splineToSplineHeading(new Pose2d(-20,-8, Math.toRadians(180)), Math.toRadians(0));
 
 
         // Final action to close out the trajectory
@@ -98,12 +98,12 @@ public class BlueBasketSide extends LinearOpMode {
                     bot.intakeRight.setPower(-0.3);
                     return false;
                 })
-                .afterTime(8.2, telemetryPacket -> {
+                .afterTime(7.9, telemetryPacket -> {
                     bot.wrist.setPosition(0.55);
                     return false;
                 })
-                .afterTime(9.7,bot.setPidVals(2100,0))
-                .afterTime(11.2, bot.setPidVals(2100,6500))
+                .afterTime(9.7,bot.setPidVals(2100,500))
+                .afterTime(12.1, bot.setPidVals(2100,6500))
                 .afterTime(13.9, telemetryPacket -> {
                     bot.intakeLeft.setPower(-0.4);
                     bot.intakeRight.setPower(0.4);
@@ -125,12 +125,12 @@ public class BlueBasketSide extends LinearOpMode {
                     bot.intakeRight.setPower(-0.3);
                     return false;
                 })
-                .afterTime(19.5, telemetryPacket -> {
+                .afterTime(19.3, telemetryPacket -> {
                     bot.wrist.setPosition(0.5);
                     return false;
                 })
-                .afterTime(19.7,bot.setPidVals(2100,0))
-                .afterTime(20.2, bot.setPidVals(2100,6500))
+                .afterTime(19.7,bot.setPidVals(2100,500))
+                .afterTime(21, bot.setPidVals(2100,6500))
                 .afterTime(23.2, telemetryPacket -> {
                     bot.intakeLeft.setPower(-0.4);
                     bot.intakeRight.setPower(0.4);
@@ -154,8 +154,7 @@ public class BlueBasketSide extends LinearOpMode {
                 })
                 .afterTime(27.2, telemetryPacket -> {
                     bot.wrist.setPosition(1);
-                    bot.leftHang.setPosition(1);
-                    bot.rightHang.setPosition(1);
+                    bot.rightHang.setPosition(0);
 
                     return false;
                 })

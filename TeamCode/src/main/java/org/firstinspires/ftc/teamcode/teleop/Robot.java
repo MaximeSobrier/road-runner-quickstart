@@ -77,6 +77,10 @@ public class Robot {
         intakeLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         intakeRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        rightHang.setDirection(Servo.Direction.FORWARD);
+        leftHang.setDirection(Servo.Direction.FORWARD);
+
+
         for (DcMotor motor: motors) {
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         }
@@ -309,12 +313,12 @@ public class Robot {
         else if (gamepad.dpad_left) {
             armTarget -= 15;
         }
-        else if (gamepad.right_bumper) {
-            leftHang.setPosition(1);
+        else if(gamepad.right_bumper) {
+            leftHang.setPosition(0);
             rightHang.setPosition(1);
         }
-        else if (gamepad.left_bumper){
-            leftHang.setPosition(0);
+        else if(gamepad.left_bumper){
+            leftHang.setPosition(1);
             rightHang.setPosition(0);
         }
 
