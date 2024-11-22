@@ -44,7 +44,7 @@ public class BlueBasketSide extends LinearOpMode {
                 .strafeToLinearHeading(new Vector2d(-57.5,-38), Math.toRadians(90))
                 .strafeToLinearHeading(new Vector2d(-50.5,-49), Math.toRadians(45))
                 .waitSeconds(5.3)
-                .splineToSplineHeading(new Pose2d(-28,-8, Math.toRadians(0)), Math.toRadians(0));
+                .splineToSplineHeading(new Pose2d(-16,-8, Math.toRadians(180)), Math.toRadians(0));
 
 
         // Final action to close out the trajectory
@@ -102,8 +102,8 @@ public class BlueBasketSide extends LinearOpMode {
                     bot.wrist.setPosition(0.55);
                     return false;
                 })
-                .afterTime(9.7,bot.setPidVals(2100,0))
-                .afterTime(11.2, bot.setPidVals(2100,6500))
+                .afterTime(9.7,bot.setPidVals(2100,500))
+                .afterTime(12.2, bot.setPidVals(2100,6500))
                 .afterTime(13.9, telemetryPacket -> {
                     bot.intakeLeft.setPower(-0.4);
                     bot.intakeRight.setPower(0.4);
@@ -129,8 +129,8 @@ public class BlueBasketSide extends LinearOpMode {
                     bot.wrist.setPosition(0.5);
                     return false;
                 })
-                .afterTime(19.7,bot.setPidVals(2100,0))
-                .afterTime(20.2, bot.setPidVals(2100,6500))
+                .afterTime(19.7,bot.setPidVals(2100,500))
+                .afterTime(21, bot.setPidVals(2100,6500))
                 .afterTime(23.2, telemetryPacket -> {
                     bot.intakeLeft.setPower(-0.4);
                     bot.intakeRight.setPower(0.4);
@@ -154,8 +154,7 @@ public class BlueBasketSide extends LinearOpMode {
                 })
                 .afterTime(27.2, telemetryPacket -> {
                     bot.wrist.setPosition(1);
-                    bot.leftHang.setPosition(1);
-                    bot.rightHang.setPosition(1);
+                    bot.rightHang.setPosition(0);
 
                     return false;
                 })
