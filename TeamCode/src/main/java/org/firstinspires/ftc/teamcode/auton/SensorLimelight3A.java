@@ -46,6 +46,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 
 import java.util.List;
 
+@Disabled
 @TeleOp(name = "Sensor: Limelight3A", group = "Sensor")
 
 public class SensorLimelight3A extends LinearOpMode {

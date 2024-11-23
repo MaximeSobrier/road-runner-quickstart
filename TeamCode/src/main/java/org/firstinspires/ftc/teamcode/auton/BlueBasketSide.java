@@ -173,6 +173,8 @@ public class BlueBasketSide extends LinearOpMode {
         bot.flip.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Wait for the start of the op mode
+
+        bot.wrist.setPosition(0.5);
         waitForStart();
         if (isStopRequested()) return;
         bot.wrist.setPosition(0.5);

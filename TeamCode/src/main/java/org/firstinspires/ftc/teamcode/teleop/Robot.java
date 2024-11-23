@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.teleop;
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
@@ -24,6 +25,7 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 import java.util.Arrays;
 import java.util.List;
 
+@Config
 //TODO: change claw opened and closed values
 public class Robot {
     public DcMotor leftFront, leftBack, rightFront, rightBack;
@@ -41,6 +43,7 @@ public class Robot {
     public static volatile boolean stopPid = false;
     public double wristTargetAuto = 0.0;
     public double intakeMultiplier = 1;
+    public static double leftHangPosUp = 0.9, leftHangPosDown = 0.4, rightHangPosUp = 0.9, rightHangPosDown = 0.4;
     Thread currentThread = null;
 
     public Robot(HardwareMap hardwareMap) {
@@ -77,7 +80,7 @@ public class Robot {
         intakeLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         intakeRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        rightHang.setDirection(Servo.Direction.FORWARD);
+        rightHang.setDirection(Servo.Direction.REVERSE);
         leftHang.setDirection(Servo.Direction.FORWARD);
 
 
@@ -201,9 +204,9 @@ public class Robot {
 
     public void scoringMacro(Gamepad gamepad1, Gamepad gamepad2) {
         if (gamepad2.y) {
-            armTarget = 2200;
+            armTarget = 2000;
             wrist.setPosition(0.51);
-            intakeMultiplier = 0.5;
+            intakeMultiplier = 0.2;
             while (Math.abs(armTarget - flip.getCurrentPosition()) > 100) {
                 TeleopPID(gamepad2);
                 arcadeDrive(gamepad1);
@@ -211,9 +214,9 @@ public class Robot {
 
         }
         if (gamepad2.right_bumper) {
-            slideTarget = 6000;
+            slideTarget = 5500;
             wrist.setPosition(0.51);
-            intakeMultiplier = 0.5;
+            intakeMultiplier = 0.2;
         }
         if (gamepad2.a) {
             slideTarget = 0;
@@ -222,6 +225,7 @@ public class Robot {
                 TeleopPID(gamepad2);
                 arcadeDrive(gamepad1);
             }
+            wrist.setPosition(0.35);
             armTarget = 0;
         }
         if (gamepad2.x) {
@@ -231,22 +235,22 @@ public class Robot {
                 TeleopPID(gamepad2);
                 arcadeDrive(gamepad1);
             }
-            wrist.setPosition(0.08);
+            wrist.setPosition(0);
         }
         else if (gamepad2.b) {
             slideTarget = 0;
             intakeMultiplier = 1;
-            wrist.setPosition(0.36);
+            wrist.setPosition(0.35);
         }
         else if (gamepad1.b) {
-            armTarget = 680;
+            armTarget = 575;
             wrist.setPosition(0);
             slideTarget = 0;
         }
         else if (gamepad1.x) {
-            armTarget = 2200;
-            wrist.setPosition(0.5);
-            slideTarget = 1000;
+            armTarget = 940;
+            wrist.setPosition(0.35);
+            slideTarget = 980;
         }
         else if (gamepad1.y) {
             armTarget = 2190;
@@ -266,7 +270,7 @@ public class Robot {
         slideExtensionLimit = targetLength;
 
         if (armTarget < 0) armTarget = 0;
-        else if (armTarget > 2200) armTarget = 2200;
+        else if (armTarget > 2100) armTarget = 2100;
 
         if (slideTarget < 0) slideTarget = 0;
         else if (slideTarget > targetLength && flipPos < 2048) slideTarget = targetLength;
@@ -313,13 +317,13 @@ public class Robot {
         else if (gamepad.dpad_left) {
             armTarget -= 15;
         }
-        else if(gamepad.right_bumper) {
-            leftHang.setPosition(0);
-            rightHang.setPosition(1);
+        else if (gamepad.right_bumper) {
+            leftHang.setPosition(leftHangPosUp);
+            rightHang.setPosition(rightHangPosUp);
         }
         else if(gamepad.left_bumper){
-            leftHang.setPosition(1);
-            rightHang.setPosition(0);
+            leftHang.setPosition(leftHangPosDown);
+            rightHang.setPosition(rightHangPosDown);
         }
 
 //        intakeRight.setPower((-gamepad.left_trigger + gamepad.right_trigger));

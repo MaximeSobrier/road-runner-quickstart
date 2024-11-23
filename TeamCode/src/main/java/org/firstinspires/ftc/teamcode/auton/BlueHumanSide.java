@@ -89,6 +89,7 @@ public class BlueHumanSide extends LinearOpMode {
         bot.slide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         bot.flip.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        bot.wrist.setPosition(0.5);
         // Wait for the start of the op mode
         waitForStart();
         if (isStopRequested()) return;
