@@ -174,7 +174,7 @@ public class BlueBasketSide extends LinearOpMode {
 
         // Wait for the start of the op mode
 
-        bot.wrist.setPosition(0.5);
+        bot.wrist.setPosition(1);
         waitForStart();
         if (isStopRequested()) return;
         bot.wrist.setPosition(0.5);

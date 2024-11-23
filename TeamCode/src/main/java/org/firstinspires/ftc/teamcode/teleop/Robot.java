@@ -182,16 +182,16 @@ public class Robot {
 //    }
 
     public void wristControl(Gamepad gamepad) {
-        if (gamepad.dpad_up) {
+        if (gamepad.dpad_up && flipPos < 1900 && slidePos < 2000) {
             wrist.setPosition(0.5);
         }
-        else if (gamepad.dpad_down) {
+        else if (gamepad.dpad_down  && flipPos < 1900 && slidePos < 2000) {
             wrist.setPosition(0);
         }
-        else if (gamepad.dpad_right) {
+        else if (gamepad.dpad_right  && flipPos < 1900 && slidePos < 2000) {
             wrist.setPosition(0.35);
         }
-        else if (gamepad.dpad_left) {
+        else if (gamepad.dpad_left  && flipPos < 1900 && slidePos < 2000) {
             wrist.setPosition(1);
         }
     }
@@ -266,11 +266,11 @@ public class Robot {
     public void TeleopPID(Gamepad gamepad) {
         armTarget += (int) ((int) -gamepad.right_stick_y * 20);
         slideTarget += (int) -gamepad.left_stick_y * 28;
-        int targetLength = (int) (1100*(1/Math.cos(Math.toRadians(flipPos/armPIDValues.ticks_in_degree))));
+        int targetLength = (int) (1950*(1/Math.cos(Math.toRadians(flipPos/armPIDValues.ticks_in_degree))));
         slideExtensionLimit = targetLength;
 
         if (armTarget < 0) armTarget = 0;
-        else if (armTarget > 2100) armTarget = 2100;
+        else if (armTarget > 2000) armTarget = 2000;
 
         if (slideTarget < 0) slideTarget = 0;
         else if (slideTarget > targetLength && flipPos < 2048) slideTarget = targetLength;
