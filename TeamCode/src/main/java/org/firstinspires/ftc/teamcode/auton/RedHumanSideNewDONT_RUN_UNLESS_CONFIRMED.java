@@ -38,12 +38,13 @@ public class RedHumanSideNewDONT_RUN_UNLESS_CONFIRMED extends LinearOpMode {
                 .waitSeconds(0.1)
                 .strafeToLinearHeading(new Vector2d(45.01, -53.5), Math.toRadians(270))
                 .waitSeconds(2.5)
-                .strafeTo(new Vector2d(45, -58))
+                .strafeToLinearHeading(new Vector2d(45, -58), Math.toRadians(90))
                 .waitSeconds(1.5)
                 .strafeTo(new Vector2d(4,-38))
                 .waitSeconds(3)
-                .strafeTo(new Vector2d(4, -49))
+                .strafeTo(new Vector2d(4, -34))
                 .waitSeconds(0.5)
+                .strafeTo(new Vector2d(4, -49))
                 .strafeTo(new Vector2d(60,-57.5));
                 //Arm to high speci and back down
 //                .strafeToLinearHeading(new Vector2d(30,-48), Math.toRadians(75))
