@@ -16,8 +16,8 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.teleop.Robot;
 
 @Config
-@Autonomous(name = "RedHumanSideNew", group = "Autonomous", preselectTeleOp = "TeleopV1")
-public class RedHumanSideNew extends LinearOpMode {
+@Autonomous(name = "RedHumanSideNewDONT_RUN_UNLESS_CONFIRMED", group = "Autonomous", preselectTeleOp = "TeleopV1")
+public class RedHumanSideNewDONT_RUN_UNLESS_CONFIRMED extends LinearOpMode {
     @Override
     public void runOpMode() {
         // Starting position of the robot (x = -11.8, y = -61.7, heading = -90 degrees)
@@ -36,8 +36,8 @@ public class RedHumanSideNew extends LinearOpMode {
                 .strafeTo(new Vector2d(45, -15))
                 .strafeToLinearHeading(new Vector2d(45, -51.5), Math.toRadians(90))
                 .waitSeconds(0.1)
-                .strafeToLinearHeading(new Vector2d(45.01, -53.01), Math.toRadians(270))
-                .waitSeconds(1.5)
+                .strafeToLinearHeading(new Vector2d(45.01, -53.5), Math.toRadians(270))
+                .waitSeconds(2.5)
                 .strafeTo(new Vector2d(45, -58))
                 .waitSeconds(1.5)
                 .strafeTo(new Vector2d(4,-38))
@@ -104,7 +104,7 @@ public class RedHumanSideNew extends LinearOpMode {
                     bot.wrist.setPosition(1);
                     return false;
                 })
-                .afterTime(13, bot.setPidVals(765,0))
+                .afterTime(13, bot.setPidVals(575,0))
                 .afterTime(11.1, telemetryPacket -> {
                     bot.wrist.setPosition(0);
                     return false;
@@ -114,6 +114,7 @@ public class RedHumanSideNew extends LinearOpMode {
                     bot.intakeRight.setPower(-1);
                     return false;
                 })
+                .afterTime(13.6, bot.setPidVals(700,0))
                 .afterTime(22, bot.setPidVals(2200,952)) // 1050, 3800 arm out
 //                .afterTime(0.05, bot.intake(-0.5))
                 .afterTime(22.02, telemetryPacket -> {
