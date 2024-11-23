@@ -6,8 +6,8 @@ import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
-import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
+import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -16,64 +16,42 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.teleop.Robot;
 
 @Config
-@Autonomous(name = "RedHumanSideNewDONT_RUN_UNLESS_CONFIRMED", group = "Autonomous", preselectTeleOp = "TeleopV1")
-public class RedHumanSideNewDONT_RUN_UNLESS_CONFIRMED extends LinearOpMode {
+@Autonomous(name = "BlueBasketSide", group = "Autonomous", preselectTeleOp = "TeleopV1")
+public class BasketFinalUSE_THIS extends LinearOpMode {
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
         // Starting position of the robot (x = -11.8, y = -61.7, heading = -90 degrees)
-        Pose2d initialPose = new Pose2d(15, -62, Math.toRadians(270));
+        Pose2d initialPose = new Pose2d(-15, -62, Math.toRadians(270)); // 90
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
         Robot bot = new Robot(hardwareMap);
 
+        // Define trajectory using Pose2d for simultaneous right and forward movement
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
-                .strafeTo(new Vector2d(9.6,-39)) // -8, -45
-                .waitSeconds(1.5)
-                .strafeTo(new Vector2d(9.6, -49))
-                .waitSeconds(1.5)
-                .splineToSplineHeading(new Pose2d(36, -40, Math.toRadians(90)), Math.toRadians(90))
-                .waitSeconds(0.25)
-                .splineToConstantHeading(new Vector2d(39.5, -15), Math.toRadians(90))
-                .strafeTo(new Vector2d(45, -15))
-                .strafeToLinearHeading(new Vector2d(45, -51.5), Math.toRadians(90))
-                .waitSeconds(0.1)
-                .strafeToLinearHeading(new Vector2d(45.01, -53.5), Math.toRadians(270))
-                .waitSeconds(2.5)
-                .strafeToLinearHeading(new Vector2d(45, -58), Math.toRadians(90))
-                .waitSeconds(1.5)
-                .strafeTo(new Vector2d(4,-38))
-                .waitSeconds(3)
-                .strafeTo(new Vector2d(4, -34))
-                .waitSeconds(0.5)
-                .strafeTo(new Vector2d(4, -49))
-                .strafeTo(new Vector2d(60,-57.5));
+                .strafeTo(new Vector2d(-8,-39)) // -8, -45
+                .waitSeconds(1.4)
+                .strafeTo(new Vector2d(-8, -49))
                 //Arm to high speci and back down
-//                .strafeToLinearHeading(new Vector2d(30,-48), Math.toRadians(75))
-//                .strafeToLinearHeading(new Vector2d(38,-14), Math.toRadians(80))
-//                .strafeToLinearHeading(new Vector2d(45,-12), Math.toRadians(90))
-//                .strafeToLinearHeading(new Vector2d(45,-50), Math.toRadians(90))
-//                .strafeToLinearHeading(new Vector2d(45,-13), Math.toRadians(90))
-//                .strafeToLinearHeading(new Vector2d(56,-13), Math.toRadians(90))
-//                .strafeToLinearHeading(new Vector2d(56,-50), Math.toRadians(90))
-//                .strafeToLinearHeading(new Vector2d(56,-13), Math.toRadians(90))
-//                .strafeToLinearHeading(new Vector2d(61,-13), Math.toRadians(90))
-//                .strafeToLinearHeading(new Vector2d(61,-50), Math.toRadians(90))
-//                .strafeToLinearHeading(new Vector2d(48,-54), Math.toRadians(90))
-//                .waitSeconds(1.5)
-//                .strafeToLinearHeading(new Vector2d(4,-45), Math.toRadians(90))
-//                .waitSeconds(1.9)
-//                .strafeTo(new Vector2d(48,-54))
-//                .waitSeconds(1.5)
-//                .strafeTo(new Vector2d(4,-45))
-//                .waitSeconds(1.9)
-//                .strafeToLinearHeading(new Vector2d(42,-50), Math.toRadians(90));
+                .strafeToLinearHeading(new Vector2d(-49,-48), Math.toRadians(90))
+                .waitSeconds(0.5)
+                .strafeToLinearHeading(new Vector2d(-49,-38), Math.toRadians(90))
+                .strafeToLinearHeading(new Vector2d(-51,-52), Math.toRadians(45))
+                .waitSeconds(7.4)
+                //intake
+                .strafeToLinearHeading(new Vector2d(-58,-45), Math.toRadians(90))
+                .waitSeconds(0.5)
+                .strafeToLinearHeading(new Vector2d(-57.5,-38), Math.toRadians(90))
+                .strafeToLinearHeading(new Vector2d(-51,-52), Math.toRadians(45))
+                .waitSeconds(5.3)
+                .splineToSplineHeading(new Pose2d(-19,-8, Math.toRadians(180)), Math.toRadians(0));
+
 
         // Final action to close out the trajectory
         Action trajectoryActionCloseOut = tab1.fresh().build();
 
-        
         Action waitAndArm = drive.actionBuilder(initialPose)
                 .afterTime(0.01, bot.setPidVals(2200,952)) // 1050, 3800 arm out
 //                .afterTime(0.05, bot.intake(-0.5))
+
                 .afterTime(1, telemetryPacket -> {//score specimen/outake
                     bot.intakeLeft.setPower(0.5);
                     bot.intakeRight.setPower(-0.5);
@@ -102,57 +80,86 @@ public class RedHumanSideNewDONT_RUN_UNLESS_CONFIRMED extends LinearOpMode {
 
                 .afterTime(6.4, bot.setPidVals(0,0))
                 .afterTime(6.9, telemetryPacket -> {
-                    bot.wrist.setPosition(1);
-                    return false;
-                })
-                .afterTime(13, bot.setPidVals(575,0))
-                .afterTime(11.1, telemetryPacket -> {
                     bot.wrist.setPosition(0);
                     return false;
                 })
-                .afterTime(13.2, telemetryPacket -> {
+                .afterTime(6, telemetryPacket -> {
                     bot.intakeLeft.setPower(1);
                     bot.intakeRight.setPower(-1);
                     return false;
                 })
-                .afterTime(13.6, bot.setPidVals(700,0))
-                .afterTime(22, bot.setPidVals(940,980)) // 1050, 3800 arm out
-//                .afterTime(0.05, bot.intake(-0.5))
-                .afterTime(22.02, telemetryPacket -> {
-                    bot.wrist.setPosition(0.35);
+                .afterTime(8.2, telemetryPacket -> {
+                    bot.intakeLeft.setPower(0.3);
+                    bot.intakeRight.setPower(-0.3);
                     return false;
                 })
-                .afterTime(23, telemetryPacket -> {//score specimen/outake
-                    bot.intakeLeft.setPower(0.5);
-                    bot.intakeRight.setPower(-0.5);
+                .afterTime(8.3, telemetryPacket -> {
+                    bot.wrist.setPosition(0.55);
                     return false;
                 })
-                .afterTime(24.3, telemetryPacket -> {
-                    bot.wrist.setPosition(0.35);
+                .afterTime(9.7,bot.setPidVals(2000,500))
+                .afterTime(12.1, bot.setPidVals(2000,6500))
+                .afterTime(13.9, telemetryPacket -> {
+                    bot.intakeLeft.setPower(-0.4);
+                    bot.intakeRight.setPower(0.4);
                     return false;
                 })
-                .afterTime(25.2, telemetryPacket -> {
-                    bot.wrist.setPosition(0.35);
+                .afterTime(14.3, telemetryPacket -> {
+                    bot.wrist.setPosition(0);
                     return false;
                 })
-                .afterTime(25.8, telemetryPacket -> {
-                    bot.intakeLeft.setPower(-0.5);
-                    bot.intakeRight.setPower(0.5);
+                .afterTime(14.31, bot.setPidVals(2000,0))
+                .afterTime(14.8, bot.setPidVals(0,0))
+                .afterTime(14.9, telemetryPacket -> {
+                    bot.intakeLeft.setPower(1);
+                    bot.intakeRight.setPower(-1);
                     return false;
                 })
-                .afterTime(26.8, bot.setPidVals(700,0))
-                .afterTime(27.8, telemetryPacket -> {
+                .afterTime(17.5, telemetryPacket -> {
+                    bot.intakeLeft.setPower(0.3);
+                    bot.intakeRight.setPower(-0.3);
+                    return false;
+                })
+                .afterTime(19, telemetryPacket -> {
+                    bot.wrist.setPosition(0.5);
+                    return false;
+                })
+                .afterTime(19.7,bot.setPidVals(2000,500))
+                .afterTime(21, bot.setPidVals(2000,6500))
+                .afterTime(23.2, telemetryPacket -> {
+                    bot.intakeLeft.setPower(-0.3);
+                    bot.intakeRight.setPower(0.3);
+                    return false;
+                })
+                .afterTime(23.7, bot.setPidVals(2000,0))
+                .afterTime(23.8, telemetryPacket -> {
+                    bot.wrist.setPosition(0);
+                    return false;
+                })
+                .afterTime(24.2, telemetryPacket -> {
+                    bot.intakeLeft.setPower(1);
+                    bot.intakeRight.setPower(-1);
+                    return false;
+                })
+                .afterTime(26.2, bot.setPidVals(0,0))
+                .afterTime(26.3, telemetryPacket -> {
                     bot.intakeLeft.setPower(0);
                     bot.intakeRight.setPower(0);
-                    bot.wrist.setPosition(1);
                     return false;
                 })
+                .afterTime(27.2, telemetryPacket -> {
+                    bot.wrist.setPosition(1);
+                    bot.rightHang.setPosition(0.4);
+                    bot.leftHang.setPosition(0.4);
 
-                .afterTime(28, bot.setPidVals(0,0))
-                .afterTime(28.5, telemetryPacket -> {
-                    bot.wrist.setPosition(1);
                     return false;
                 })
+//                .afterTime(28.3, bot.setPidVals(1400,1000))
+//                .afterTime(28.8, bot.setPidVals(1400,2400))
+//                .afterTime(29.5, telemetryPacket -> {
+//                    bot.wrist.setPosition(0);
+//                    return false;
+//                })
                 .build();
 
         bot.slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -161,9 +168,15 @@ public class RedHumanSideNewDONT_RUN_UNLESS_CONFIRMED extends LinearOpMode {
         bot.slide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         bot.flip.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        bot.wrist.setPosition(1);
         // Wait for the start of the op mode
+
+        bot.wrist.setPosition(1);
+
+        bot.rightHang.setPosition(0.9);
+        bot.leftHang.setPosition(0.9);
         waitForStart();
+
+
         if (isStopRequested()) return;
         Robot.stopPid = false;
 
@@ -181,3 +194,5 @@ public class RedHumanSideNewDONT_RUN_UNLESS_CONFIRMED extends LinearOpMode {
         bot.stopPidAction();
     }
 }
+
+

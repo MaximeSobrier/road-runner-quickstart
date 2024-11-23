@@ -122,7 +122,7 @@ public class RedBasketSide extends LinearOpMode {
                     bot.intakeRight.setPower(-0.3);
                     return false;
                 })
-                .afterTime(19.3, telemetryPacket -> {
+                .afterTime(19, telemetryPacket -> {
                     bot.wrist.setPosition(0.5);
                     return false;
                 })
@@ -133,7 +133,7 @@ public class RedBasketSide extends LinearOpMode {
                     bot.intakeRight.setPower(0.3);
                     return false;
                 })
-                .afterTime(23.7, bot.setPidVals(2100,0))
+                .afterTime(23.7, bot.setPidVals(2000,0))
                 .afterTime(23.8, telemetryPacket -> {
                     bot.wrist.setPosition(0);
                     return false;
@@ -149,7 +149,7 @@ public class RedBasketSide extends LinearOpMode {
                     bot.intakeRight.setPower(0);
                     return false;
                 })
-                .afterTime(28.7, telemetryPacket -> {
+                .afterTime(27.2, telemetryPacket -> {
                     bot.wrist.setPosition(1);
                     bot.rightHang.setPosition(0.4);
                     bot.leftHang.setPosition(0.4);
