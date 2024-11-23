@@ -116,10 +116,10 @@ public class RedHumanSideNewDONT_RUN_UNLESS_CONFIRMED extends LinearOpMode {
                     return false;
                 })
                 .afterTime(13.6, bot.setPidVals(700,0))
-                .afterTime(22, bot.setPidVals(2200,952)) // 1050, 3800 arm out
+                .afterTime(22, bot.setPidVals(940,980)) // 1050, 3800 arm out
 //                .afterTime(0.05, bot.intake(-0.5))
                 .afterTime(22.02, telemetryPacket -> {
-                    bot.wrist.setPosition(0.55);
+                    bot.wrist.setPosition(0.35);
                     return false;
                 })
                 .afterTime(23, telemetryPacket -> {//score specimen/outake
@@ -128,12 +128,11 @@ public class RedHumanSideNewDONT_RUN_UNLESS_CONFIRMED extends LinearOpMode {
                     return false;
                 })
                 .afterTime(24.3, telemetryPacket -> {
-                    bot.wrist.setPosition(0.55);
+                    bot.wrist.setPosition(0.35);
                     return false;
                 })
-                .afterTime(24, bot.setPidVals(2180,600))
                 .afterTime(25.2, telemetryPacket -> {
-                    bot.wrist.setPosition(0.55);
+                    bot.wrist.setPosition(0.35);
                     return false;
                 })
                 .afterTime(25.8, telemetryPacket -> {
