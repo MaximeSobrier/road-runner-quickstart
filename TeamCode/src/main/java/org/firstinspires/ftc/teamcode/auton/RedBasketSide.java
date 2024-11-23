@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.auton;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.InstantAction;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
@@ -11,6 +12,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.teleop.Robot;
@@ -28,21 +30,21 @@ public class RedBasketSide extends LinearOpMode {
         // Define trajectory using Pose2d for simultaneous right and forward movement
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
                 .strafeTo(new Vector2d(-8,-39)) // -8, -45
-                .waitSeconds(1.5)
+                .waitSeconds(1.4)
                 .strafeTo(new Vector2d(-8, -49))
                 //Arm to high speci and back down
                 .strafeToLinearHeading(new Vector2d(-49,-48), Math.toRadians(90))
                 .waitSeconds(0.5)
                 .strafeToLinearHeading(new Vector2d(-49,-38), Math.toRadians(90))
-                .strafeToLinearHeading(new Vector2d(-49,-52), Math.toRadians(45))
-                .waitSeconds(7.5)
+                .strafeToLinearHeading(new Vector2d(-51,-52), Math.toRadians(45))
+                .waitSeconds(7.4)
                 //intake
-                .strafeToLinearHeading(new Vector2d(-59,-45), Math.toRadians(90))
+                .strafeToLinearHeading(new Vector2d(-58,-45), Math.toRadians(90))
                 .waitSeconds(0.5)
                 .strafeToLinearHeading(new Vector2d(-57.5,-38), Math.toRadians(90))
-                .strafeToLinearHeading(new Vector2d(-50.5,-49), Math.toRadians(45))
+                .strafeToLinearHeading(new Vector2d(-51,-52), Math.toRadians(45))
                 .waitSeconds(5.3)
-                .splineToSplineHeading(new Pose2d(-28,-8, Math.toRadians(0)), Math.toRadians(0));
+                .splineToSplineHeading(new Pose2d(-19,-8, Math.toRadians(180)), Math.toRadians(0));
 
 
         // Final action to close out the trajectory
@@ -51,16 +53,13 @@ public class RedBasketSide extends LinearOpMode {
         Action waitAndArm = drive.actionBuilder(initialPose)
                 .afterTime(0.01, bot.setPidVals(2200,952)) // 1050, 3800 arm out
 //                .afterTime(0.05, bot.intake(-0.5))
-                .afterTime(0.02, telemetryPacket -> {
-                    bot.wrist.setPosition(0.55);
-                    return false;
-                })
+
                 .afterTime(1, telemetryPacket -> {//score specimen/outake
                     bot.intakeLeft.setPower(0.5);
                     bot.intakeRight.setPower(-0.5);
                     return false;
                 })
-                .afterTime(2.3, telemetryPacket -> {
+                .afterTime(0.7, telemetryPacket -> {
                     bot.wrist.setPosition(0.55);
                     return false;
                 })
@@ -91,27 +90,27 @@ public class RedBasketSide extends LinearOpMode {
                     bot.intakeRight.setPower(-1);
                     return false;
                 })
-                .afterTime(7.8, telemetryPacket -> {
+                .afterTime(8.2, telemetryPacket -> {
                     bot.intakeLeft.setPower(0.3);
                     bot.intakeRight.setPower(-0.3);
                     return false;
                 })
-                .afterTime(8.2, telemetryPacket -> {
+                .afterTime(8.3, telemetryPacket -> {
                     bot.wrist.setPosition(0.55);
                     return false;
                 })
-                .afterTime(9.7,bot.setPidVals(2100,0))
-                .afterTime(11.2, bot.setPidVals(2100,6500))
+                .afterTime(9.7,bot.setPidVals(2000,500))
+                .afterTime(12.1, bot.setPidVals(2000,6500))
                 .afterTime(13.9, telemetryPacket -> {
                     bot.intakeLeft.setPower(-0.4);
                     bot.intakeRight.setPower(0.4);
                     return false;
                 })
-                .afterTime(14.1, telemetryPacket -> {
+                .afterTime(14.3, telemetryPacket -> {
                     bot.wrist.setPosition(0);
                     return false;
                 })
-                .afterTime(14.2, bot.setPidVals(2100,0))
+                .afterTime(14.31, bot.setPidVals(2000,0))
                 .afterTime(14.8, bot.setPidVals(0,0))
                 .afterTime(14.9, telemetryPacket -> {
                     bot.intakeLeft.setPower(1);
@@ -123,15 +122,15 @@ public class RedBasketSide extends LinearOpMode {
                     bot.intakeRight.setPower(-0.3);
                     return false;
                 })
-                .afterTime(19.5, telemetryPacket -> {
+                .afterTime(19.3, telemetryPacket -> {
                     bot.wrist.setPosition(0.5);
                     return false;
                 })
-                .afterTime(19.7,bot.setPidVals(2100,0))
-                .afterTime(20.2, bot.setPidVals(2100,6500))
+                .afterTime(19.7,bot.setPidVals(2000,500))
+                .afterTime(21, bot.setPidVals(2000,6500))
                 .afterTime(23.2, telemetryPacket -> {
-                    bot.intakeLeft.setPower(-0.4);
-                    bot.intakeRight.setPower(0.4);
+                    bot.intakeLeft.setPower(-0.3);
+                    bot.intakeRight.setPower(0.3);
                     return false;
                 })
                 .afterTime(23.7, bot.setPidVals(2100,0))
@@ -150,8 +149,11 @@ public class RedBasketSide extends LinearOpMode {
                     bot.intakeRight.setPower(0);
                     return false;
                 })
-                .afterTime(27.2, telemetryPacket -> {
+                .afterTime(28.7, telemetryPacket -> {
                     bot.wrist.setPosition(1);
+                    bot.rightHang.setPosition(0.4);
+                    bot.leftHang.setPosition(0.4);
+
                     return false;
                 })
 //                .afterTime(28.3, bot.setPidVals(1400,1000))
@@ -168,11 +170,16 @@ public class RedBasketSide extends LinearOpMode {
         bot.slide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         bot.flip.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        bot.wrist.setPosition(1);
         // Wait for the start of the op mode
+
+        bot.wrist.setPosition(1);
+
+        bot.rightHang.setPosition(0.9);
+        bot.leftHang.setPosition(0.9);
         waitForStart();
+
+
         if (isStopRequested()) return;
-        bot.wrist.setPosition(0.5);
         Robot.stopPid = false;
 
         // Execute the defined trajectory

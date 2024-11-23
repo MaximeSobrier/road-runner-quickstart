@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.auton;
 
-import android.util.Log;
-
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
@@ -18,8 +16,8 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.teleop.Robot;
 
 @Config
-@Autonomous(name = "RedHumanSide", group = "Autonomous", preselectTeleOp = "TeleopV1")
-public class RedHumanSide extends LinearOpMode {
+@Autonomous(name = "RedHumanSideNew", group = "Autonomous", preselectTeleOp = "TeleopV1")
+public class RedHumanSideNew extends LinearOpMode {
     @Override
     public void runOpMode() {
         // Starting position of the robot (x = -11.8, y = -61.7, heading = -90 degrees)
