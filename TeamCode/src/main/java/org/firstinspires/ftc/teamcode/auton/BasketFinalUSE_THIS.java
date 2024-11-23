@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.teleop.Robot;
 
 @Config
-@Autonomous(name = "BlueBasketSide", group = "Autonomous", preselectTeleOp = "TeleopV1")
+@Autonomous(name = "BasketFinalUSE_THIS", group = "Autonomous", preselectTeleOp = "TeleopV1")
 public class BasketFinalUSE_THIS extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
@@ -33,16 +33,16 @@ public class BasketFinalUSE_THIS extends LinearOpMode {
                 //Arm to high speci and back down
                 .strafeToLinearHeading(new Vector2d(-49,-48), Math.toRadians(90))
                 .waitSeconds(0.5)
-                .strafeToLinearHeading(new Vector2d(-49,-38), Math.toRadians(90))
+                .strafeToLinearHeading(new Vector2d(-48.25,-36), Math.toRadians(90))
                 .strafeToLinearHeading(new Vector2d(-51,-52), Math.toRadians(45))
                 .waitSeconds(7.4)
                 //intake
                 .strafeToLinearHeading(new Vector2d(-58,-45), Math.toRadians(90))
                 .waitSeconds(0.5)
-                .strafeToLinearHeading(new Vector2d(-57.5,-38), Math.toRadians(90))
+                .strafeToLinearHeading(new Vector2d(-56.75,-36), Math.toRadians(90))
                 .strafeToLinearHeading(new Vector2d(-51,-52), Math.toRadians(45))
                 .waitSeconds(5.3)
-                .splineToSplineHeading(new Pose2d(-19,-8, Math.toRadians(180)), Math.toRadians(0));
+                .splineToSplineHeading(new Pose2d(-19,-9.5, Math.toRadians(180)), Math.toRadians(0));
 
 
         // Final action to close out the trajectory
@@ -99,16 +99,16 @@ public class BasketFinalUSE_THIS extends LinearOpMode {
                 })
                 .afterTime(9.7,bot.setPidVals(2000,500))
                 .afterTime(12.1, bot.setPidVals(2000,6500))
-                .afterTime(13.9, telemetryPacket -> {
-                    bot.intakeLeft.setPower(-0.4);
-                    bot.intakeRight.setPower(0.4);
+                .afterTime(14.2, telemetryPacket -> {
+                    bot.intakeLeft.setPower(-0.25);
+                    bot.intakeRight.setPower(0.25);
                     return false;
                 })
-                .afterTime(14.3, telemetryPacket -> {
+                .afterTime(14.4, telemetryPacket -> {
                     bot.wrist.setPosition(0);
                     return false;
                 })
-                .afterTime(14.31, bot.setPidVals(2000,0))
+                .afterTime(14.41, bot.setPidVals(2000,0))
                 .afterTime(14.8, bot.setPidVals(0,0))
                 .afterTime(14.9, telemetryPacket -> {
                     bot.intakeLeft.setPower(1);
@@ -120,22 +120,36 @@ public class BasketFinalUSE_THIS extends LinearOpMode {
                     bot.intakeRight.setPower(-0.3);
                     return false;
                 })
-                .afterTime(19, telemetryPacket -> {
+                .afterTime(19.5, telemetryPacket -> {
                     bot.wrist.setPosition(0.5);
                     return false;
                 })
-                .afterTime(19.7,bot.setPidVals(2000,500))
-                .afterTime(21, bot.setPidVals(2000,6500))
-                .afterTime(23.2, telemetryPacket -> {
+                .afterTime(20,bot.setPidVals(2000,500))
+                .afterTime(22, bot.setPidVals(2000,6500))
+                .afterTime(24.1, telemetryPacket -> {
                     bot.intakeLeft.setPower(-0.3);
                     bot.intakeRight.setPower(0.3);
                     return false;
                 })
-                .afterTime(23.7, bot.setPidVals(2000,0))
-                .afterTime(23.8, telemetryPacket -> {
+                .afterTime(24.11, telemetryPacket -> {
+                    bot.intakeLeft.setPower(-0.3);
+                    bot.intakeRight.setPower(0.3);
+                    return false;
+                })
+                .afterTime(24.12, telemetryPacket -> {
+                    bot.intakeLeft.setPower(-0.3);
+                    bot.intakeRight.setPower(0.3);
+                    return false;
+                })
+                .afterTime(24.5, telemetryPacket -> {
                     bot.wrist.setPosition(0);
                     return false;
                 })
+                .afterTime(24.51, telemetryPacket -> {
+                    bot.wrist.setPosition(0);
+                    return false;
+                })
+                .afterTime(24.7, bot.setPidVals(2000,0))
                 .afterTime(24.2, telemetryPacket -> {
                     bot.intakeLeft.setPower(1);
                     bot.intakeRight.setPower(-1);
@@ -154,12 +168,6 @@ public class BasketFinalUSE_THIS extends LinearOpMode {
 
                     return false;
                 })
-//                .afterTime(28.3, bot.setPidVals(1400,1000))
-//                .afterTime(28.8, bot.setPidVals(1400,2400))
-//                .afterTime(29.5, telemetryPacket -> {
-//                    bot.wrist.setPosition(0);
-//                    return false;
-//                })
                 .build();
 
         bot.slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

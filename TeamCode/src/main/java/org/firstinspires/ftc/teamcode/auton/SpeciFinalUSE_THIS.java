@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.teleop.Robot;
 
 @Config
-@Autonomous(name = "RedHumanSideNewDONT_RUN_UNLESS_CONFIRMED", group = "Autonomous", preselectTeleOp = "TeleopV1")
+@Autonomous(name = "SpeciFinalUSE_THIS", group = "Autonomous", preselectTeleOp = "TeleopV1")
 public class SpeciFinalUSE_THIS extends LinearOpMode {
     @Override
     public void runOpMode() {
