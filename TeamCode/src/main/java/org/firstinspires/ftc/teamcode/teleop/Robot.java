@@ -7,8 +7,10 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.InstantAction;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.AnalogInput;
@@ -360,6 +362,16 @@ public class Robot {
         intakeLeft.setPower(power);
         intakeRight.setPower(-power);
     }
+    public Action setArmVals(int pivot, int slide) {
+        return new InstantAction(() -> {armTarget = pivot; slideTarget = slide;});
+    }
+    public Action setWrist(double pos) {
+        return new InstantAction(() -> wrist.setPosition(pos));
+    }
+    public Action setIntake(double power) {
+        return new InstantAction(() -> {intakeLeft.setPower(power); intakeRight.setPower(-power);});
+    }
+
     public Action intake(double power) {
         return new intakeAction(power);
     }
