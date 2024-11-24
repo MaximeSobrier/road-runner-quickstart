@@ -41,12 +41,12 @@ public class SpeciFinalUSE_THIS extends LinearOpMode {
                 .waitSeconds(1.5)
                 .strafeToLinearHeading(new Vector2d(45, -58), Math.toRadians(270))
                 .waitSeconds(1.5)
-                .strafeToLinearHeading(new Vector2d(4,-45), Math.toRadians(90))
-                .waitSeconds(2.5)
-                .strafeTo(new Vector2d(4, -36.5))
-                .waitSeconds(0.5)
-                .strafeTo(new Vector2d(4, -49))
-                .strafeTo(new Vector2d(60,-57.5));
+//                .strafeToLinearHeading(new Vector2d(4,-45), Math.toRadians(90))
+//                .waitSeconds(2.5)
+//                .strafeTo(new Vector2d(4, -36.5))
+//                .waitSeconds(0.5)
+//                .strafeTo(new Vector2d(4, -49))
+//                .strafeTo(new Vector2d(60,-57.5));
                 //Arm to high speci and back down
 //                .strafeToLinearHeading(new Vector2d(30,-48), Math.toRadians(75))
 //                .strafeToLinearHeading(new Vector2d(38,-14), Math.toRadians(80))
@@ -66,7 +66,7 @@ public class SpeciFinalUSE_THIS extends LinearOpMode {
 //                .waitSeconds(1.5)
 //                .strafeTo(new Vector2d(4,-45))
 //                .waitSeconds(1.9)
-//                .strafeToLinearHeading(new Vector2d(42,-50), Math.toRadians(90));
+                .strafeToLinearHeading(new Vector2d(42,-56), Math.toRadians(270));
 
         // Final action to close out the trajectory
         Action trajectoryActionCloseOut = tab1.fresh().build();
@@ -117,19 +117,34 @@ public class SpeciFinalUSE_THIS extends LinearOpMode {
                     return false;
                 })
                 .afterTime(20, bot.setPidVals(900,0))
-                .afterTime(19.7, telemetryPacket -> {
-                    bot.wrist.setPosition(0);
+                .afterTime(22, bot.setPidVals(0,0))
+                .afterTime(22.5, telemetryPacket -> {
+                    bot.wrist.setPosition(1);
+                    bot.intakeLeft.setPower(0);
+                    bot.intakeRight.setPower(0);
                     return false;
                 })
-                .afterTime(20.8, telemetryPacket -> {
-                    bot.wrist.setPosition(0.35);
-                    return false;
-                })
-                .afterTime(21.8, telemetryPacket -> {
-                    bot.intakeLeft.setPower(0.3);
-                    bot.intakeRight.setPower(-0.3);
-                    return false;
-                })
+//                .afterTime(19.7, telemetryPacket -> {
+//                    bot.wrist.setPosition(0);
+//                    return false;
+//                })
+//                .afterTime(19, telemetryPacket -> {
+//                    bot.wrist.setPosition(0.35);
+//                    return false;
+//                })
+//                .afterTime(21.8, telemetryPacket -> {
+//                    bot.intakeLeft.setPower(0.3);
+//                    bot.intakeRight.setPower(-0.3);
+//                    return false;
+//                })
+//                .afterTime(20.1, telemetryPacket -> {
+//                    bot.wrist.setPosition(0.35);
+//                    return false;
+//                })
+//                .afterTime(20.3, telemetryPacket -> {
+//                    bot.wrist.setPosition(0.35);
+//                    return false;
+//                })
 //                .afterTime(20.5, telemetryPacket -> {
 //                    bot.wrist.setPosition(0.35);
 //                    return false;
@@ -138,12 +153,13 @@ public class SpeciFinalUSE_THIS extends LinearOpMode {
 //                    bot.wrist.setPosition(0.35);
 //                    return false;
 //                })
-                .afterTime(22, bot.setPidVals(940,980))
+//                .afterTime(22, bot.setPidVals(650,980))
+//                .afterTime(25, bot.setPidVals(350, 980))
 //                .afterTime(22.01, telemetryPacket -> {
 //                    bot.wrist.setPosition(0.35);
 //                    return false;
 //                })// 1050, 3800 arm out
-////                .afterTime(0.05, bot.intake(-0.5))
+//                .afterTime(0.05, bot.intake(-0.5))
 //                .afterTime(22.02, telemetryPacket -> {
 //                    bot.wrist.setPosition(0.35);
 //                    return false;
@@ -156,24 +172,24 @@ public class SpeciFinalUSE_THIS extends LinearOpMode {
 //                    bot.wrist.setPosition(0.35);
 //                    return false;
 //                })
-                .afterTime(28.5, telemetryPacket -> {
-                    bot.intakeLeft.setPower(-0.5);
-                    bot.intakeRight.setPower(0.5);
-                    return false;
-                })
-                .afterTime(26.8, bot.setPidVals(700,0))
-                .afterTime(27.8, telemetryPacket -> {
-                    bot.intakeLeft.setPower(0);
-                    bot.intakeRight.setPower(0);
-                    bot.wrist.setPosition(1);
-                    return false;
-                })
-
-                .afterTime(28, bot.setPidVals(0,0))
-                .afterTime(28.5, telemetryPacket -> {
-                    bot.wrist.setPosition(1);
-                    return false;
-                })
+//                .afterTime(28.5, telemetryPacket -> {
+//                    bot.intakeLeft.setPower(-0.5);
+//                    bot.intakeRight.setPower(0.5);
+//                    return false;
+//                })
+//                .afterTime(26.8, bot.setPidVals(700,0))
+//                .afterTime(27.8, telemetryPacket -> {
+//                    bot.intakeLeft.setPower(0);
+//                    bot.intakeRight.setPower(0);
+//                    bot.wrist.setPosition(1);
+//                    return false;
+//                })
+//
+//                .afterTime(28, bot.setPidVals(0,0))
+//                .afterTime(28.5, telemetryPacket -> {
+//                    bot.wrist.setPosition(1);
+//                    return false;
+//                })
                 .build();
 
         bot.slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
