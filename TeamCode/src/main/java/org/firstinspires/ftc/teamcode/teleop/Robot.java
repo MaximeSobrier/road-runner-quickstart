@@ -175,12 +175,9 @@ public class Robot {
     }
 
 //    public void tiltControl(Gamepad gamepad) {
-//        flip.setPower(-gamepad.right_stick_y * 0.25);
-//        if (gamepad.a) {
-//            flip.setPower(1);
-//        }
-//        else if (gamepad.b) flip.setPower(-1);
-//        else flip.setPower(0);
+//        flip.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        flip.setDirection(DcMotorSimple.Direction.FORWARD);
+//        flip.setPower(-gamepad.right_stick_y * 0.9);
 //    }
 
     public void wristControl(Gamepad gamepad) {

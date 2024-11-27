@@ -12,14 +12,14 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@Disabled
+
 @Config
 @TeleOp
 public class PidfTuner extends OpMode {
     private PIDController armController, slideController;
 
-    public static double fP = 0.0043, fI = 0.0015, fD = 0.0;  //fD = 0.00001, fP = 0.002
-    public static double fF = 0.08; //fF = 0.0022
+    public static double fP = 0.002, fI = 0, fD = 0;  //fD = 0.00001, fP = 0.002
+    public static double fF = 0.0001; //fF = 0.0022
     public static double sP = 0.003, sI, sD;
     public static double sF;
 
