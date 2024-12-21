@@ -59,8 +59,8 @@ public class TwoWheelLocalizer extends Localizer { // todo: make two wheel odo w
     private double previousIMUOrientation;
     private double deltaRadians;
     private double totalHeading;
-    public static double FORWARD_TICKS_TO_INCHES = 0.0029538589785651718;
-    public static double STRAFE_TICKS_TO_INCHES = 0.0029538589785651718;
+    public static double FORWARD_TICKS_TO_INCHES = 0.00197895600226;
+    public static double STRAFE_TICKS_TO_INCHES = 0.00197895600226;
 
     /**
      * This creates a new TwoWheelLocalizer from a HardwareMap, with a starting Pose at (0,0)
@@ -91,11 +91,11 @@ public class TwoWheelLocalizer extends Localizer { // todo: make two wheel odo w
         imu.initialize(new IMU.Parameters(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.FORWARD)));
 
         // TODO: replace these with your encoder ports
-        forwardEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "backLeft"));
-        strafeEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "backRight"));
+        forwardEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "rightBack"));
+        strafeEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "leftFront"));
 
         // TODO: reverse any encoders necessary
-        forwardEncoder.setDirection(Encoder.FORWARD);
+        forwardEncoder.setDirection(Encoder.REVERSE);
         strafeEncoder.setDirection(Encoder.REVERSE);
 
         setStartPose(setStartPose);
