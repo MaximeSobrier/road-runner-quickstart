@@ -11,6 +11,7 @@ import com.acmerobotics.roadrunner.InstantAction;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.AnalogInput;
@@ -34,6 +35,7 @@ public class Robot {
     public DcMotor flip, slide;
     public Servo wrist, leftHang, rightHang;
     public CRServo intakeLeft, intakeRight;
+    public Servo grippy, twisty, flippy;
     public MecanumDrive drive;
     public PIDController armController, slideController;
 
@@ -58,12 +60,10 @@ public class Robot {
 
         flip = hardwareMap.dcMotor.get("flip");
         slide = hardwareMap.dcMotor.get("slide");
-//        leftHang = hardwareMap.servo.get("leftHang");
-//        rightHang = hardwareMap.servo.get("rightHang");
-//
-//        intakeLeft = hardwareMap.crservo.get("intakeLeft");
-//        intakeRight = hardwareMap.crservo.get("intakeRight");
-//        wrist = hardwareMap.servo.get("wrist");
+
+        grippy = hardwareMap.servo.get("claw");
+        twisty = hardwareMap.servo.get("twist");
+        flippy = hardwareMap.servo.get("flippy");
 
         List<DcMotor> motors = Arrays.asList(leftBack, leftFront, rightBack, rightFront, flip, slide);
 
@@ -78,6 +78,8 @@ public class Robot {
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
         flip.setDirection(DcMotorSimple.Direction.FORWARD);
         flip.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        slide.setDirection(DcMotorSimple.Direction.REVERSE);
 
 //        intakeLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 //        intakeRight.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -124,14 +126,14 @@ public class Robot {
     public void arcadeDriveWithSlowMode(Gamepad gamepad) {
         double y,x,rx;
         if (gamepad.right_trigger > 0) {
-            y = -0.5*gamepad.left_stick_y;
-            x = 0.5*gamepad.left_stick_x;
-            rx = 0.5*gamepad.right_stick_x;
+            y = 0.5*gamepad.left_stick_y;
+            x = -0.5*gamepad.left_stick_x;
+            rx = -0.5*gamepad.right_stick_x;
         }
         else {
-            y = -gamepad.left_stick_y;
-            x = gamepad.left_stick_x;
-            rx = 0.75*gamepad.right_stick_x;
+            y = gamepad.left_stick_y;
+            x = -gamepad.left_stick_x;
+            rx = -0.75*gamepad.right_stick_x;
         }
 
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
@@ -180,20 +182,6 @@ public class Robot {
 //        flip.setPower(-gamepad.right_stick_y * 0.9);
 //    }
 
-//    public void wristControl(Gamepad gamepad) {
-//        if (gamepad.dpad_up && flipPos < 1900 && slidePos < 2000) {
-//            wrist.setPosition(0.5);
-//        }
-//        else if (gamepad.dpad_down  && flipPos < 1900 && slidePos < 2000) {
-//            wrist.setPosition(0);
-//        }
-//        else if (gamepad.dpad_right  && flipPos < 1900 && slidePos < 2000) {
-//            wrist.setPosition(0.35);
-//        }
-//        else if (gamepad.dpad_left  && flipPos < 1900 && slidePos < 2000) {
-//            wrist.setPosition(1);
-//        }
-//    }
 
 //    public void intakeControl(Gamepad gamepad) {
 //        intakeRight.setPower(intakeMultiplier*(-gamepad.left_trigger + gamepad.right_trigger));
@@ -203,77 +191,113 @@ public class Robot {
 
     public void scoringMacro(Gamepad gamepad1, Gamepad gamepad2) {
         if (gamepad2.y) {
-            armTarget = 2000;
+            armTarget = 1850;
 //            wrist.setPosition(0.51);
             intakeMultiplier = 0.2;
+            flippy.setPosition(0);
             while (Math.abs(armTarget - flip.getCurrentPosition()) > 100) {
                 TeleopPID(gamepad2);
                 arcadeDrive(gamepad1);
             }
-
         }
         if (gamepad2.right_bumper) {
-            slideTarget = 5500;
-//            wrist.setPosition(0.51);
-            intakeMultiplier = 0.2;
+            slideTarget = 2600;
         }
         if (gamepad2.a) {
             slideTarget = 0;
             intakeMultiplier = 1;
-            while (Math.abs(slideTarget - slide.getCurrentPosition()) > 3000) {
+            while (Math.abs(slideTarget - slide.getCurrentPosition()) > 1000) {
                 TeleopPID(gamepad2);
                 arcadeDrive(gamepad1);
             }
 //            wrist.setPosition(0.35);
             armTarget = 0;
+            flippy.setPosition(0);
+            twisty.setPosition(0);
+            grippy.setPosition(0);
         }
         if (gamepad2.x) {
-            slideTarget = 1100;
+            slideTarget = 2300;
+            armTarget = 300;
             intakeMultiplier = 1;
-            while (Math.abs(slideTarget - slide.getCurrentPosition()) > 1500) {
+            flippy.setPosition(1);
+            while (Math.abs(slideTarget - slide.getCurrentPosition()) > 500) {
                 TeleopPID(gamepad2);
                 arcadeDrive(gamepad1);
             }
-//            wrist.setPosition(0);
+
+            twisty.setPosition(0);
+            grippy.setPosition(0);
         }
         else if (gamepad2.b) {
-            slideTarget = 0;
+            armTarget = 0;
             intakeMultiplier = 1;
-//            wrist.setPosition(0.35);
-        }
-        else if (gamepad1.b) {
-            armTarget = 575;
-//            wrist.setPosition(0);
-            slideTarget = 0;
-        }
-        else if (gamepad1.x) {
-            armTarget = 940;
-//            wrist.setPosition(0.35);
-            slideTarget = 980;
-        }
-        else if (gamepad1.y) {
-            armTarget = 2190;
-//            wrist.setPosition(0);
-            while (Math.abs(armTarget - flip.getCurrentPosition()) > 100) {
+
+            while (Math.abs(armTarget - flip.getCurrentPosition()) > 50) {
                 TeleopPID(gamepad2);
                 arcadeDrive(gamepad1);
             }
-            slideTarget = 3000;
+            Actions.runBlocking(new SleepAction(0.15));
+
+            grippy.setPosition(1);
+
+            Actions.runBlocking(new SleepAction(0.5));
+
+            flippy.setPosition(0);
+
+            Actions.runBlocking(new SleepAction(0.25));
+
+            twisty.setPosition(0);
+            slideTarget = 0;
+            while (Math.abs(slideTarget - slide.getCurrentPosition()) > 500) {
+                TeleopPID(gamepad2);
+                arcadeDrive(gamepad1);
+            }
         }
+//        else if (gamepad1.b) {
+//            armTarget = 575;
+////            wrist.setPosition(0);
+//            slideTarget = 0;
+//        }
+//        else if (gamepad1.x) {
+//            armTarget = 940;
+////            wrist.setPosition(0.35);
+//            slideTarget = 980;
+//        }
+//        else if (gamepad1.y) {
+//            armTarget = 2190;
+////            wrist.setPosition(0);
+//            while (Math.abs(armTarget - flip.getCurrentPosition()) > 100) {
+//                TeleopPID(gamepad2);
+//                arcadeDrive(gamepad1);
+//            }
+//            slideTarget = 3000;
+//        }
     }
 
+    public void clawControl(Gamepad gamepad) {
+        if (gamepad.dpad_left) grippy.setPosition(0);
+
+        else if (gamepad.dpad_right) grippy.setPosition(1);
+    }
+    public void twistyControl(Gamepad gamepad) {
+        if (flip.getCurrentPosition() < 1800) {
+            if (gamepad.left_bumper) twisty.setPosition(0);
+            else if (gamepad.right_bumper) twisty.setPosition(1);
+        }
+    }
     public void TeleopPID(Gamepad gamepad) {
-        armTarget += (int) ((int) -gamepad.right_stick_y * 20);
+        armTarget += (int) ((int) -gamepad.right_stick_y * 30);
         slideTarget += (int) -gamepad.left_stick_y * 28;
-        int targetLength = (int) (1750*(1/Math.cos(Math.toRadians(flipPos/armPIDValues.ticks_in_degree))));
-        slideExtensionLimit = targetLength;
+//        int targetLength = (int) (1750*(1/Math.cos(Math.toRadians(flipPos/armPIDValues.ticks_in_degree))));
+//        slideExtensionLimit = targetLength;
 
         if (armTarget < 0) armTarget = 0;
-        else if (armTarget > 2000) armTarget = 2000;
+        else if (armTarget > 2200) armTarget = 2200;
 
         if (slideTarget < 0) slideTarget = 0;
-        else if (slideTarget > targetLength && flipPos < 2048) slideTarget = targetLength;
-        else if (slideTarget > 6000) slideTarget = 6000;
+//        else if (slideTarget > targetLength && flipPos < 1850) slideTarget = targetLength;
+        else if (slideTarget > 3200) slideTarget = 3200;
 
         flipPos = flip.getCurrentPosition();
         slidePos = slide.getCurrentPosition();
@@ -287,7 +311,8 @@ public class Robot {
 
         double pid2 = slideController.calculate(slidePos, slideTarget);
 
-        slide.setPower(pid2);
+        slide.setPower(-pid2);
+
     }
     public void slidesPID(Gamepad gamepad) {
 //        double ff = Math.cos(Math.toRadians(armTarget / armPIDValues.ticks_in_degree)) * armPIDValues.fF;
@@ -501,11 +526,11 @@ public class Robot {
     }
 
     public static class armPIDValues {
-        public static double fP = 0.0043, fI = 0.0015, fD = 0.0;  //fD = 0.00001, fP = 0.002
-        public static double fF = 0.08; //fF = 0.0022
-        public static double sP = 0.003, sI, sD;
+        public static double fP = 0.008, fI = 0, fD = 0;  //fD = 0.00001, fP = 0.002
+        public static double fF = 0.01; //fF = 0.0022
+        public static double sP = 0.005, sI, sD;
 
-        private static final double ticks_in_degree = 2048 / 90.0;
+        private static final double ticks_in_degree = 1850 / 90.0;
     }
     //4000, 2000
 }

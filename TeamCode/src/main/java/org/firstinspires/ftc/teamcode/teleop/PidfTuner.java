@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
@@ -18,21 +19,21 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class PidfTuner extends OpMode {
     private PIDController armController, slideController;
 
-    public static double fP = 0.002, fI = 0, fD = 0;  //fD = 0.00001, fP = 0.002
-    public static double fF = 0.0001; //fF = 0.0022
-    public static double sP = 0.003, sI, sD;
+    public static double fP = 0.008, fI = 0, fD = 0;  //fD = 0.00001, fP = 0.002
+    public static double fF = 0.01; //fF = 0.0022
+    public static double sP = 0.005, sI, sD;
     public static double sF;
 
     public static boolean PIDon = false;
 
 
-    public static int armTarget = 500;
-    public static int slideTarget = 500;
+    public static int armTarget = 0;
+    public static int slideTarget = 0;
     public static double servoTarget = 0.5;
     
     public static double multiplier = 0.01;
 
-    private final double ticks_in_degree = 11144.8 / 360.0;
+    private final double ticks_in_degree = 1850 / 90.0;
 
     private DcMotorEx flip, slide;
 //    private Servo wrist;
@@ -57,6 +58,7 @@ public class PidfTuner extends OpMode {
         slide.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
         flip.setDirection(DcMotor.Direction.FORWARD);
+        slide.setDirection(DcMotor.Direction.REVERSE);
     }
 
     @Override
@@ -83,7 +85,7 @@ public class PidfTuner extends OpMode {
             slidePos = slide.getCurrentPosition();
             double pid2 = slideController.calculate(slidePos, slideTarget);
 
-            slide.setPower(pid2);
+            slide.setPower(-pid2);
 
             telemetry.addData("flipPower", power);
         }
