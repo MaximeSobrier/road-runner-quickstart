@@ -51,10 +51,10 @@ public class Robot {
     public Robot(HardwareMap hardwareMap) {
         drive = new MecanumDrive(hardwareMap, new Pose2d(0,0,0));
 
-        leftFront = hardwareMap.dcMotor.get("frontLeft");
-        leftBack = hardwareMap.dcMotor.get("backLeft");
-        rightFront = hardwareMap.dcMotor.get("frontRight");
-        rightBack = hardwareMap.dcMotor.get("backRight");
+        leftFront = hardwareMap.dcMotor.get("leftFront");
+        leftBack = hardwareMap.dcMotor.get("leftBack");
+        rightFront = hardwareMap.dcMotor.get("rightFront");
+        rightBack = hardwareMap.dcMotor.get("rightBack");
 
         flip = hardwareMap.dcMotor.get("flip");
         slide = hardwareMap.dcMotor.get("slide");
