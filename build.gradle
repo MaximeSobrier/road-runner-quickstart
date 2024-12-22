@@ -28,6 +28,4 @@ allprojects {
     }
 }
 
-repositories {
-    mavenCentral()
-}
+

@@ -18,7 +18,7 @@ public class TeleopForLittleChildren extends LinearOpMode {
 
             telemetry.addData("FlipPos", bot.flip.getCurrentPosition());
             telemetry.addData("SlidePos", bot.slide.getCurrentPosition());
-            telemetry.addData("wristPos", bot.wrist.getPosition());
+//            telemetry.addData("wristPos", bot.wrist.getPosition());
             telemetry.addData("flipTarget", bot.armTarget);
             telemetry.addData("slideTarget", bot.slideTarget);
             telemetry.addData("fliPower", bot.flip.getPower());

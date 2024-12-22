@@ -75,59 +75,59 @@ public class SpeciFinalUSE_THIS extends LinearOpMode {
         Action waitAndArm = drive.actionBuilder(initialPose)
                 .afterTime(0.01, bot.setPidVals(2200,952)) // 1050, 3800 arm out
 //                .afterTime(0.05, bot.intake(-0.5))
-                .afterTime(1, telemetryPacket -> {//score specimen/outake
-                    bot.intakeLeft.setPower(0.5);
-                    bot.intakeRight.setPower(-0.5);
-                    return false;
-                })
-                .afterTime(0.7, telemetryPacket -> {
-                    bot.wrist.setPosition(0.55);
-                    return false;
-                })
+//                .afterTime(1, telemetryPacket -> {//score specimen/outake
+//                    bot.intakeLeft.setPower(0.5);
+//                    bot.intakeRight.setPower(-0.5);
+//                    return false;
+//                })
+//                .afterTime(0.7, telemetryPacket -> {
+//                    bot.wrist.setPosition(0.55);
+//                    return false;
+//                })
                 .afterTime(2, bot.setPidVals(2200,600))
-                .afterTime(3.2, telemetryPacket -> {
-                    bot.wrist.setPosition(0.55);
-                    return false;
-                })
-                .afterTime(3.8, telemetryPacket -> {
-                    bot.intakeLeft.setPower(-0.5);
-                    bot.intakeRight.setPower(0.5);
-                    return false;
-                })
+//                .afterTime(3.2, telemetryPacket -> {
+//                    bot.wrist.setPosition(0.55);
+//                    return false;
+//                })
+//                .afterTime(3.8, telemetryPacket -> {
+//                    bot.intakeLeft.setPower(-0.5);
+//                    bot.intakeRight.setPower(0.5);
+//                    return false;
+//                })
                 .afterTime(4.8, bot.setPidVals(700,0))
-                .afterTime(5.8, telemetryPacket -> {
-                    bot.intakeLeft.setPower(0);
-                    bot.intakeRight.setPower(0);
-                    return false;
-                })
+//                .afterTime(5.8, telemetryPacket -> {
+//                    bot.intakeLeft.setPower(0);
+//                    bot.intakeRight.setPower(0);
+//                    return false;
+//                })
 
                 .afterTime(6.4, bot.setPidVals(0,0))
-                .afterTime(6.9, telemetryPacket -> {
-                    bot.wrist.setPosition(1);
-                    return false;
-                })
+//                .afterTime(6.9, telemetryPacket -> {
+//                    bot.wrist.setPosition(1);
+//                    return false;
+//                })
                 .afterTime(13, bot.setPidVals(575,0))
-                .afterTime(12.1, telemetryPacket -> {
-                    bot.wrist.setPosition(0);
-                    return false;
-                })
-                .afterTime(13.2, telemetryPacket -> {
-                    bot.intakeLeft.setPower(1);
-                    bot.intakeRight.setPower(-1);
-                    return false;
-                })
+//                .afterTime(12.1, telemetryPacket -> {
+//                    bot.wrist.setPosition(0);
+//                    return false;
+//                })
+//                .afterTime(13.2, telemetryPacket -> {
+//                    bot.intakeLeft.setPower(1);
+//                    bot.intakeRight.setPower(-1);
+//                    return false;
+//                })
                 .afterTime(20, bot.setPidVals(900,0))
                 .afterTime(22, bot.setPidVals(0,0))
-                .afterTime(22.5, telemetryPacket -> {
-                    bot.wrist.setPosition(1);
-                    bot.intakeLeft.setPower(0);
-                    bot.intakeRight.setPower(0);
-                    return false;
-                })
-                .afterTime(19.7, telemetryPacket -> {
-                    bot.wrist.setPosition(0);
-                    return false;
-                })
+//                .afterTime(22.5, telemetryPacket -> {
+//                    bot.wrist.setPosition(1);
+//                    bot.intakeLeft.setPower(0);
+//                    bot.intakeRight.setPower(0);
+//                    return false;
+//                })
+//                .afterTime(19.7, telemetryPacket -> {
+//                    bot.wrist.setPosition(0);
+//                    return false;
+//                })
                 .afterTime(19, telemetryPacket -> {
                     bot.wrist.setPosition(0.35);
                     return false;

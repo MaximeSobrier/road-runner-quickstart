@@ -23,6 +23,8 @@ public class PidfTuner extends OpMode {
     public static double sP = 0.003, sI, sD;
     public static double sF;
 
+    public static boolean PIDon = false;
+
 
     public static int armTarget = 500;
     public static int slideTarget = 500;
@@ -30,10 +32,10 @@ public class PidfTuner extends OpMode {
     
     public static double multiplier = 0.01;
 
-    private final double ticks_in_degree = 2048 / 90.0;
+    private final double ticks_in_degree = 11144.8 / 360.0;
 
     private DcMotorEx flip, slide;
-    private Servo wrist;
+//    private Servo wrist;
 
     @Override
     public void init() {
@@ -46,7 +48,7 @@ public class PidfTuner extends OpMode {
 
         flip = (DcMotorEx) bot.flip;
         slide = (DcMotorEx) bot.slide;
-        wrist = bot.wrist;
+//        wrist = bot.wrist;
 
         flip.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         flip.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
@@ -60,28 +62,35 @@ public class PidfTuner extends OpMode {
     @Override
     public void loop() {
         int armPos, slidePos;
+
         armPos = flip.getCurrentPosition();
 
-        armController.setPID(fP, fI, fD);
-
-        double pid = armController.calculate(armPos, armTarget);
-        double ff = Math.cos(Math.toRadians(armTarget / ticks_in_degree)) * fF;
-//        if (armPos > 0) pid *= Math.cos(Math.toRadians(armPos/ticks_in_degree));
-
-        double power = pid + ff;
-
-        flip.setPower(power);
-
-        slideController.setPID(sP,sI,sD);
         slidePos = slide.getCurrentPosition();
-        double pid2 = slideController.calculate(slidePos, slideTarget);
 
-        slide.setPower(pid2);
+        if (PIDon) {
 
-        wrist.setPosition(servoTarget);
+            armController.setPID(fP, fI, fD);
+
+            double pid = armController.calculate(armPos, armTarget);
+            double ff = Math.cos(Math.toRadians(armTarget / ticks_in_degree)) * fF;
+    //        if (armPos > 0) pid *= Math.cos(Math.toRadians(armPos/ticks_in_degree));
+
+            double power = pid + ff;
+
+            flip.setPower(power);
+
+            slideController.setPID(sP,sI,sD);
+            slidePos = slide.getCurrentPosition();
+            double pid2 = slideController.calculate(slidePos, slideTarget);
+
+            slide.setPower(pid2);
+
+            telemetry.addData("flipPower", power);
+        }
+
+//        wrist.setPosition(servoTarget);
 
         telemetry.addData("armPos", armPos);
-        telemetry.addData("flipPower", power);
         telemetry.addData("slidePos", slidePos);
         telemetry.addData("slidePower", slide.getPower());
         telemetry.update();
