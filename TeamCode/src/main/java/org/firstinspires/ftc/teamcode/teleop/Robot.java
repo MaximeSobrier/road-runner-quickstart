@@ -73,9 +73,11 @@ public class Robot {
         slide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         flip.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftBack.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+
         flip.setDirection(DcMotorSimple.Direction.FORWARD);
         flip.setDirection(DcMotorSimple.Direction.FORWARD);
 
