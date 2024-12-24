@@ -59,9 +59,11 @@ public class TwoWheelLocalizer extends Localizer { // todo: make two wheel odo w
     private double previousIMUOrientation;
     private double deltaRadians;
     private double totalHeading;
-    public static double FORWARD_TICKS_TO_INCHES = 0.00197895600226;
-    public static double STRAFE_TICKS_TO_INCHES = 0.00197895600226;
 
+    public static double FORWARD_TICKS_TO_INCHES = 0.002015029761058582;
+    public static double STRAFE_TICKS_TO_INCHES = 0.0020333026693855325;
+
+    public static double forwardX = -1.8125, forwardY = -6.0625, strafeX = -2.375, strafeY = 5.9375;
     /**
      * This creates a new TwoWheelLocalizer from a HardwareMap, with a starting Pose at (0,0)
      * facing 0 heading.
@@ -81,22 +83,22 @@ public class TwoWheelLocalizer extends Localizer { // todo: make two wheel odo w
      */
     public TwoWheelLocalizer(HardwareMap map, Pose setStartPose) {
         // TODO: replace these with your encoder positions
-        forwardEncoderPose = new Pose(-1.8125, -6.0625, 0);
-        strafeEncoderPose = new Pose(-2.375, 5.9375, Math.toRadians(90));
+        forwardEncoderPose = new Pose(forwardX, forwardY, 0);
+        strafeEncoderPose = new Pose(strafeX, strafeY, Math.toRadians(90));
 
         hardwareMap = map;
 
         imu = hardwareMap.get(IMU.class, "imu");
         // TODO: replace this with your IMU's orientation
-        imu.initialize(new IMU.Parameters(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.FORWARD)));
+        imu.initialize(new IMU.Parameters(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.LEFT, RevHubOrientationOnRobot.UsbFacingDirection.UP)));
 
         // TODO: replace these with your encoder ports
-        forwardEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "rightBack"));
-        strafeEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "leftFront"));
+        forwardEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "rightFront"));
+        strafeEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "leftBack"));
 
         // TODO: reverse any encoders necessary
-        forwardEncoder.setDirection(Encoder.REVERSE);
-        strafeEncoder.setDirection(Encoder.REVERSE);
+        forwardEncoder.setDirection(Encoder.FORWARD);
+        strafeEncoder.setDirection(Encoder.FORWARD);
 
         setStartPose(setStartPose);
         timer = new NanoTimer();
