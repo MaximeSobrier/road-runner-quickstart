@@ -60,8 +60,8 @@ public class TwoWheelLocalizer extends Localizer { // todo: make two wheel odo w
     private double deltaRadians;
     private double totalHeading;
 
-    public static double FORWARD_TICKS_TO_INCHES = 0.002015029761058582;
-    public static double STRAFE_TICKS_TO_INCHES = 0.0020333026693855325;
+    public static double FORWARD_TICKS_TO_INCHES = 0.0019973399347890013;
+    public static double STRAFE_TICKS_TO_INCHES = 0.001995352052136619;
 
     public static double forwardX = -1.8125, forwardY = -6.0625, strafeX = -2.375, strafeY = 5.9375;
     /**
