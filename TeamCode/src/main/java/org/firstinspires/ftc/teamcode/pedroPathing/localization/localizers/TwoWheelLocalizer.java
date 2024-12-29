@@ -74,7 +74,7 @@ public class TwoWheelLocalizer extends Localizer { // todo: make two wheel odo w
         this(map, new Pose());
     }
 
-    /**
+    /** 
      * This creates a new TwoWheelLocalizer from a HardwareMap and a Pose, with the Pose
      * specifying the starting pose of the localizer.
      *
