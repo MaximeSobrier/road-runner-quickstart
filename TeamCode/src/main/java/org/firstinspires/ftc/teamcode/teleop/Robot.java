@@ -74,8 +74,8 @@ public class Robot {
         flip.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
-        leftBack.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
         flip.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -203,7 +203,13 @@ public class Robot {
             }
         }
         if (gamepad2.right_bumper) {
-            slideTarget = 2600;
+            slideTarget = 3300;
+        }
+        if (gamepad1.b) flippy.setPosition(0.25);
+        if (gamepad1.x) {
+            flippy.setPosition(0.3);
+            armTarget = 900;
+            slideTarget = 1400;
         }
         if (gamepad2.a) {
             slideTarget = 0;
@@ -283,10 +289,8 @@ public class Robot {
         else if (gamepad.dpad_right) grippy.setPosition(1);
     }
     public void twistyControl(Gamepad gamepad) {
-        if (flip.getCurrentPosition() < 1800) {
-            if (gamepad.left_bumper) twisty.setPosition(0);
-            else if (gamepad.right_bumper) twisty.setPosition(1);
-        }
+        if (gamepad.dpad_up) twisty.setPosition(0);
+        else if (gamepad.dpad_down) twisty.setPosition(1);
     }
     public void TeleopPID(Gamepad gamepad) {
         armTarget += (int) ((int) -gamepad.right_stick_y * 30);
@@ -299,7 +303,7 @@ public class Robot {
 
         if (slideTarget < 0) slideTarget = 0;
 //        else if (slideTarget > targetLength && flipPos < 1850) slideTarget = targetLength;
-        else if (slideTarget > 3200) slideTarget = 3200;
+        else if (slideTarget > 3600) slideTarget = 3600;
 
         flipPos = flip.getCurrentPosition();
         slidePos = slide.getCurrentPosition();
