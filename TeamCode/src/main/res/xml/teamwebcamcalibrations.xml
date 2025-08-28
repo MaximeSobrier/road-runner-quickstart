@@ -158,4 +158,12 @@
 
     <!-- ======================================================================================= -->
 
+    <MotorController name="Control Hub" serialNumber="">
+        <Motor name="frontLeft" port="2" type="goBILDA 5203 Series"/>
+        <Motor name="frontRight" port="3" type="goBILDA 5203 Series"/>
+        <Motor name="backLeft" port="0" type="goBILDA 5203 Series"/>
+        <Motor name="backRight" port="1" type="goBILDA 5203 Series"/>
+    </MotorController>
+
+
 </Calibrations>
